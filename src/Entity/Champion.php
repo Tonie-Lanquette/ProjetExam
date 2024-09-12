@@ -7,10 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ChampionRepository::class)]
+#[UniqueEntity('name', message: 'This name is already used')]
 class Champion
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -48,6 +51,9 @@ class Champion
      */
     #[ORM\ManyToMany(targetEntity: Ennemy::class, mappedBy: 'champion')]
     private Collection $ennemies;
+
+    #[ORM\Column(length: 255)]
+    private ?string $squarePortrait = null;
 
     public function __construct()
     {
@@ -201,6 +207,18 @@ class Champion
         if ($this->ennemies->removeElement($ennemy)) {
             $ennemy->removeChampion($this);
         }
+
+        return $this;
+    }
+
+    public function getSquarePortrait(): ?string
+    {
+        return $this->squarePortrait;
+    }
+
+    public function setSquarePortrait(string $squarePortrait): static
+    {
+        $this->squarePortrait = $squarePortrait;
 
         return $this;
     }

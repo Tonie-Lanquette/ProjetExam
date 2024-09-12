@@ -15,7 +15,7 @@
         {% endblock %}
     </head>
         {% if is_granted('ROLE_ADMIN') and app.request.pathInfo matches('/admin/') %}
-            <header class ="flex w-100 h-24 font-bold ">
+            <header class="sticky top-0 left-0 w-full h-24 font-bold flex items-center justify-center z-50">
                 {% if app.request.attributes.get('_route') in ['app_article_index','app_article_new','app_article_show','app_article_edit']  %} 
                     <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1] w-full h-full items-center justify-around" href="{{ path('app_article_index') }}">Articles</a> 
                 {% else %}

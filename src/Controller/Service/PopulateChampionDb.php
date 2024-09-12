@@ -32,7 +32,6 @@ class PopulateChampionDb
         foreach ($data['data'] as $championData) {
             $getData[] = [
                 'name' => $championData['name'],
-                'description' => $championData['blurb'],
                 'role' => $championData['tags'],
                 'key' => $championData['key'],
        
@@ -42,20 +41,42 @@ class PopulateChampionDb
         return $getData;
     }
 
+    public function fetchChampionDescription(int $key): array
+    {
+        $response = $this->client->request(
+            'GET',
+            'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/' . $key . '.json'
+        );
+
+        return $response->toArray();
+    }
+
+
     public function saveChampionData(array $championData, EntityManagerInterface $em)
     {
         foreach ($championData as $data) {
 
-            $championRole = implode(', ', $data['role']); 
-            $championKey= ($data['key']);
-            $splashUrl = 'https://cdn.communitydragon.org/latest/champion/' . $championKey . '/splash-art';
+            $championDescription = $this->fetchChampionDescription($data['key']);
+            $description = $championDescription['shortBio'];
+
 
             $champion = new Champion();
+
             $champion->setName($data['name']);
-            $champion->setDescription($data['description']);
+
+            $championKey= ($data['key']);
+            $champion->setChampionKey($championKey);
+
+            $champion->setDescription($description);
+
+            $championRole = implode(', ', $data['role']);
             $champion->setRole($championRole);
-            $champion->setChampionKey($data['key']);
+
+            $splashUrl = 'https://cdn.communitydragon.org/latest/champion/' . $championKey . '/splash-art';
             $champion->setSplashArt($splashUrl);
+
+            $squarePortrait = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/' . $championKey . '.png';
+            $champion->setSquarePortrait($squarePortrait);
         
             $em->persist($champion);
         }
@@ -63,15 +84,15 @@ class PopulateChampionDb
         $em->flush();
     }
 
-    public function fetchItemData(): array
-    {
-        $response = $this->client->request(
-            'GET',
-            'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
-        );
+    // public function fetchItemData(): array
+    // {
+    //     $response = $this->client->request(
+    //         'GET',
+    //         'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
+    //     );
 
-        return $response->toArray();
-    }
+    //     return $response->toArray();
+    // }
 }
 
 

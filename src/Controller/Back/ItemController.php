@@ -43,15 +43,15 @@ final class ItemController extends AbstractController
         ]);
     }
 
-    #[Route('/update', name: 'app_item_update')]
-    public function upadte(FetchJson $fetchJson): Response
-    {
-        dd($fetchJson->fetchItemData());
+    // #[Route('/update', name: 'app_item_update')]
+    // public function upadte(FetchJson $fetchJson): Response
+    // {
+    //     dd($fetchJson->fetchItemData());
 
-        return $this->render('admin/item/update.html.twig', [
-            'controller_name' => 'ItemController',
-        ]);
-    }
+    //     return $this->render('admin/item/update.html.twig', [
+    //         'controller_name' => 'ItemController',
+    //     ]);
+    // }
 
 
     #[Route('/{id}', name: 'app_item_show', methods: ['GET'])]

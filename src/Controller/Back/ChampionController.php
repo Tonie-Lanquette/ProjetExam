@@ -49,21 +49,14 @@ final class ChampionController extends AbstractController
     public function upadte(PopulateChampionDb $populateChampionDb, EntityManagerInterface $em): Response
     {
 
-        // Fetch the raw champion data from the API
-        $championJsonData = $populateChampionDb->fetchChampionData();
+       
+        $fetchChampionData = $populateChampionDb->fetchChampionData();
 
-        // Process the data using getChampionData and pass the fetched JSON data
-        $championData = $populateChampionDb->getChampionData($championJsonData);
+        $championData = $populateChampionDb->getChampionData($fetchChampionData);
 
         $populateChampionDb->saveChampionData($championData, $em);
 
-        // return new Response('Champion data has been updated and saved to the database.');
-
-        // Output the result for debugging
-        // dd($championData);
-
-        // dd($fetchJson->getChampionData());
-
+    
         return $this->redirectToRoute('app_champion_index', [], Response::HTTP_SEE_OTHER);
     }
 

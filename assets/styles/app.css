@@ -1,3 +1,9 @@
-body {
-    background-color: skyblue;
+.scroll-hidden {
+    overflow-y: scroll;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+ 
 }
