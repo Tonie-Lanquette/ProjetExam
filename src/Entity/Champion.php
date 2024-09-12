@@ -29,7 +29,7 @@ class Champion
     private ?string $splash_art = null;
 
     #[ORM\Column]
-    private ?int $key = null;
+    private ?int $championKey = null;
 
     /**
      * @var Collection<int, User>
@@ -109,14 +109,14 @@ class Champion
         return $this;
     }
 
-    public function getKey(): ?int
+    public function getChampionKey(): ?int
     {
-        return $this->key;
+        return $this->championKey;
     }
 
-    public function setKey(int $key): static
+    public function setChampionKey(int $championKey): static
     {
-        $this->key = $key;
+        $this->championKey = $championKey;
 
         return $this;
     }

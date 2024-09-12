@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Controller\Back;
+
+use App\Controller\Service\FetchJson;
+use App\Controller\Service\PopulateChampionDb;
+use App\Entity\Champion;
+use App\Form\ChampionType;
+use App\Repository\ChampionRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+#[Route('admin/champion')]
+final class ChampionController extends AbstractController
+{
+    #[Route(name: 'app_champion_index', methods: ['GET'])]
+    public function index(ChampionRepository $championRepository): Response
+    {
+        return $this->render('admin/champion/index.html.twig', [
+            'champions' => $championRepository->findAll(),
+        ]);
+        
+    }
+
+    #[Route('/new', name: 'app_champion_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $champion = new Champion();
+        $form = $this->createForm(ChampionType::class, $champion);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($champion);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_champion_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin/champion/new.html.twig', [
+            'champion' => $champion,
+            'form' => $form,
+        ]);
+    }
+    
+    #[Route('/update', name: 'app_champion_update')]
+    public function upadte(PopulateChampionDb $populateChampionDb, EntityManagerInterface $em): Response
+    {
+
+        // Fetch the raw champion data from the API
+        $championJsonData = $populateChampionDb->fetchChampionData();
+
+        // Process the data using getChampionData and pass the fetched JSON data
+        $championData = $populateChampionDb->getChampionData($championJsonData);
+
+        $populateChampionDb->saveChampionData($championData, $em);
+
+        // return new Response('Champion data has been updated and saved to the database.');
+
+        // Output the result for debugging
+        // dd($championData);
+
+        // dd($fetchJson->getChampionData());
+
+        return $this->redirectToRoute('app_champion_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}', name: 'app_champion_show', methods: ['GET'])]
+    public function show(Champion $champion): Response
+    {
+        return $this->render('admin/champion/show.html.twig', [
+            'champion' => $champion,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_champion_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Champion $champion, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ChampionType::class, $champion);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_champion_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin/champion/edit.html.twig', [
+            'champion' => $champion,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_champion_delete', methods: ['POST'])]
+    public function delete(Request $request, Champion $champion, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $champion->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($champion);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_champion_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+   
+}
