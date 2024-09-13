@@ -46,15 +46,15 @@ final class ChampionController extends AbstractController
     }
     
     #[Route('/update', name: 'app_champion_update')]
-    public function upadte(PopulateChampionDb $populateChampionDb, EntityManagerInterface $em): Response
+    public function upadte(PopulateChampionDb $populateChampionDb): Response
     {
 
        
         $fetchChampionData = $populateChampionDb->fetchChampionData();
 
         $championData = $populateChampionDb->getChampionData($fetchChampionData);
-
-        $populateChampionDb->saveChampionData($championData, $em);
+        // dd($championData);
+        $populateChampionDb->saveChampionData($championData);
 
     
         return $this->redirectToRoute('app_champion_index', [], Response::HTTP_SEE_OTHER);

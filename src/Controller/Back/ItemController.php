@@ -2,7 +2,7 @@
 
 namespace App\Controller\Back;
 
-use App\Controller\Service\FetchJson;
+use App\Controller\Service\PopulateItemDb;
 use App\Entity\Item;
 use App\Form\ItemType;
 use App\Repository\ItemRepository;
@@ -43,15 +43,22 @@ final class ItemController extends AbstractController
         ]);
     }
 
-    // #[Route('/update', name: 'app_item_update')]
-    // public function upadte(FetchJson $fetchJson): Response
-    // {
-    //     dd($fetchJson->fetchItemData());
+    #[Route('/update', name: 'app_item_update')]
+    public function upadte(PopulateItemDb $populateItemDb): Response
+    {
 
-    //     return $this->render('admin/item/update.html.twig', [
-    //         'controller_name' => 'ItemController',
-    //     ]);
-    // }
+        
+
+        $fetchItemData = $populateItemDb->fetchItemData();
+       
+
+        $itemData = $populateItemDb->getItemData($fetchItemData);
+        // dd($itemData);
+        $populateItemDb->saveItemData($itemData);
+        // dd($populateItemDb);
+
+        return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
+    }
 
 
     #[Route('/{id}', name: 'app_item_show', methods: ['GET'])]

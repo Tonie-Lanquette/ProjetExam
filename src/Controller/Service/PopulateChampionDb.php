@@ -9,10 +9,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class PopulateChampionDb
 {
     private $client;
+    private $em;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, EntityManagerInterface $em)
     {
         $this->client = $client;
+        $this->em = $em;
     }
 
     public function fetchChampionData(): array
@@ -51,21 +53,25 @@ class PopulateChampionDb
         return $response->toArray();
     }
 
-
-    public function saveChampionData(array $championData, EntityManagerInterface $em)
+    public function saveChampionData(array $championData)
     {
+        
+        $championRepo = $this->em->getRepository(Champion::class);
+
         foreach ($championData as $data) {
+
+            $championKey = ($data['key']);
+            $champion = $championRepo->findOneBy(['championKey' => $championKey]);
+
+            if (!$champion) {
+                $champion = new Champion();
+                $champion->setChampionKey($championKey); 
+            }
 
             $championDescription = $this->fetchChampionDescription($data['key']);
             $description = $championDescription['shortBio'];
 
-
-            $champion = new Champion();
-
             $champion->setName($data['name']);
-
-            $championKey= ($data['key']);
-            $champion->setChampionKey($championKey);
 
             $champion->setDescription($description);
 
@@ -77,22 +83,13 @@ class PopulateChampionDb
 
             $squarePortrait = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/' . $championKey . '.png';
             $champion->setSquarePortrait($squarePortrait);
-        
-            $em->persist($champion);
+
+            $this->em->persist($champion);
         }
 
-        $em->flush();
+        $this->em->flush();
     }
 
-    // public function fetchItemData(): array
-    // {
-    //     $response = $this->client->request(
-    //         'GET',
-    //         'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
-    //     );
-
-    //     return $response->toArray();
-    // }
 }
 
 
