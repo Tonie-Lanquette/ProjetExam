@@ -28,9 +28,7 @@ class Build
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updated = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $creator = null;
+   
 
     #[ORM\ManyToOne(inversedBy: 'builds')]
     private ?Champion $champion = null;
@@ -52,6 +50,9 @@ class Build
      */
     #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'build')]
     private Collection $votes;
+
+    #[ORM\ManyToOne(inversedBy: 'builds')]
+    private ?User $creator = null;
 
     public function __construct()
     {
@@ -109,18 +110,6 @@ class Build
     public function setUpdated(\DateTimeInterface $updated): static
     {
         $this->updated = $updated;
-
-        return $this;
-    }
-
-    public function getCreator(): ?User
-    {
-        return $this->creator;
-    }
-
-    public function setCreator(User $creator): static
-    {
-        $this->creator = $creator;
 
         return $this;
     }
@@ -223,6 +212,18 @@ class Build
                 $vote->setBuild(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): static
+    {
+        $this->creator = $creator;
 
         return $this;
     }

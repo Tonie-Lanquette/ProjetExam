@@ -25,11 +25,21 @@ final class BuildController extends AbstractController
     #[Route('/new', name: 'app_build_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $creator = $this->getUser();
+
         $build = new Build();
+
+        $build -> setCreator($creator);
+
         $form = $this->createForm(BuildType::class, $build);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $build->setCreated(new \DateTimeImmutable());
+            $build->setUpdated(new \DateTimeImmutable());
+
             $entityManager->persist($build);
             $entityManager->flush();
 
@@ -57,6 +67,9 @@ final class BuildController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $build->setUpdated(new \DateTimeImmutable());
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_build_index', [], Response::HTTP_SEE_OTHER);

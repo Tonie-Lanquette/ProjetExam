@@ -20,7 +20,7 @@ final class UserController extends AbstractController
     {
 
         // $user = new User();
-        // $user->setEmail('tonie.lanquette.simplon@gmail.com')
+        // $user->setEmail('2tonie.lanquette.simplon@gmail.com')
         //     ->setUsername('User')
         //     ->setRoles(['ROLE_ADMIN'])
         //     ->setGdpr(new \DateTimeImmutable())

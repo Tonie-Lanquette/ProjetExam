@@ -65,11 +65,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'user')]
     private Collection $votes;
 
+    /**
+     * @var Collection<int, Build>
+     */
+    #[ORM\OneToMany(targetEntity: Build::class, mappedBy: 'creator')]
+    private Collection $builds;
+
     public function __construct()
     {
         $this->favorite = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->votes = new ArrayCollection();
+        $this->builds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -273,6 +280,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($vote->getUser() === $this) {
                 $vote->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Build>
+     */
+    public function getBuilds(): Collection
+    {
+        return $this->builds;
+    }
+
+    public function addBuild(Build $build): static
+    {
+        if (!$this->builds->contains($build)) {
+            $this->builds->add($build);
+            $build->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBuild(Build $build): static
+    {
+        if ($this->builds->removeElement($build)) {
+            // set the owning side to null (unless already changed)
+            if ($build->getCreator() === $this) {
+                $build->setCreator(null);
             }
         }
 

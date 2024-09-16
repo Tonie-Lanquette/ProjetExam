@@ -3,30 +3,36 @@
 namespace App\Form;
 
 use App\Entity\Build;
-use App\Entity\Champion;
+use App\Entity\Item;
+use App\Entity\Slot;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BuildType extends AbstractType
+class SlotType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('champion', EntityType::class, [
-                'class' => Champion::class,
+            ->add('category')
+            ->add('build', EntityType::class, [
+                'class' => Build::class,
                 'choice_label' => 'id',
             ])
-            ->add('visibility')
+            ->add('item', EntityType::class, [
+                'class' => Item::class,
+                'expanded' => true,
+                'choice_label' => 'name',
+                'multiple' => true,
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Build::class,
+            'data_class' => Slot::class,
         ]);
     }
 }

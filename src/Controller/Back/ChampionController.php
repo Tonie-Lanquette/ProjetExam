@@ -2,7 +2,6 @@
 
 namespace App\Controller\Back;
 
-use App\Controller\Service\FetchJson;
 use App\Controller\Service\PopulateChampionDb;
 use App\Entity\Champion;
 use App\Form\ChampionType;
@@ -53,7 +52,7 @@ final class ChampionController extends AbstractController
         $fetchChampionData = $populateChampionDb->fetchChampionData();
 
         $championData = $populateChampionDb->getChampionData($fetchChampionData);
-        // dd($championData);
+        
         $populateChampionDb->saveChampionData($championData);
 
     

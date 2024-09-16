@@ -53,9 +53,9 @@ final class ItemController extends AbstractController
        
 
         $itemData = $populateItemDb->getItemData($fetchItemData);
-        // dd($itemData);
+        
         $populateItemDb->saveItemData($itemData);
-        // dd($populateItemDb);
+       
 
         return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
