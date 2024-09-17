@@ -14,32 +14,61 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-        {% if is_granted('ROLE_ADMIN') and app.request.pathInfo matches('/admin/') %}
-            <header class="sticky top-0 left-0 w-full h-24 font-bold flex items-center justify-center z-50">
-                {% if app.request.attributes.get('_route') in ['app_article_index','app_article_new','app_article_show','app_article_edit']  %} 
-                    <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1] w-full h-full items-center justify-around" href="{{ path('app_article_index') }}">Articles</a> 
-                {% else %}
-                    <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_article_index') }}">Articles</a>
-                {% endif %} 
-                {% if app.request.attributes.get('_route') in ['app_build_index','app_build_new','app_build_show','app_build_edit']  %}
-                    <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1] w-full h-full items-center justify-around" href="{{ path('app_build_index') }}">Builds</a> 
-                {% else %}
-                    <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_build_index') }}">Builds</a> 
-                {% endif %}
-                {% if app.request.attributes.get('_route') in ['app_champion_index','app_champion_new','app_champion_show','app_champion_edit']  %} 
-                    <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1]  w-full h-full items-center justify-around" href="{{ path('app_champion_index') }}">Champions</a> 
-                {% else %}
-                    <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_champion_index') }}">Champions</a>
-                {% endif %} 
-                {% if app.request.attributes.get('_route') in ['app_item_index','app_item_new','app_item_show','app_item_edit']  %}
-                    <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1]  w-full h-full items-center justify-around" href="{{ path('app_item_index') }}">Items</a> 
-                {% else %}
-                    <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_item_index') }}">Items</a> 
-                {% endif %}
-                    <a class="flex  bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_logout') }}">Logout</a>
-            </header>
-        {% else %} 
-        {# front header   #}
+        {% if app.request.attributes.get('_route') in ['app_login'] %}
+        {% else %}
+            {% if is_granted('ROLE_ADMIN') and app.request.pathInfo matches('/admin/') %}
+                <header class="sticky top-0 left-0 w-full h-24 font-bold flex items-center justify-center z-50">
+                    {% if app.request.attributes.get('_route') in ['app_article_index','app_article_new','app_article_show','app_article_edit']  %} 
+                        <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1] w-full h-full items-center justify-around" href="{{ path('app_article_index') }}">Articles</a> 
+                    {% else %}
+                        <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_article_index') }}">Articles</a>
+                    {% endif %} 
+                    {% if app.request.attributes.get('_route') in ['app_build_index','app_build_new','app_build_show','app_build_edit']  %}
+                        <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1] w-full h-full items-center justify-around" href="{{ path('app_build_index') }}">Builds</a> 
+                    {% else %}
+                        <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_build_index') }}">Builds</a> 
+                    {% endif %}
+                    {% if app.request.attributes.get('_route') in ['app_champion_index','app_champion_new','app_champion_show','app_champion_edit']  %} 
+                        <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1]  w-full h-full items-center justify-around" href="{{ path('app_champion_index') }}">Champions</a> 
+                    {% else %}
+                        <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_champion_index') }}">Champions</a>
+                    {% endif %} 
+                    {% if app.request.attributes.get('_route') in ['app_item_index','app_item_new','app_item_show','app_item_edit']  %}
+                        <a class="flex bg-[#4A0026] border-b-8 border-white text-[#F1F1F1]  w-full h-full items-center justify-around" href="{{ path('app_item_index') }}">Items</a> 
+                    {% else %}
+                        <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_item_index') }}">Items</a> 
+                    {% endif %}
+                        <a class="flex bg-[#4A0026] text-[#F1F1F1] hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_logout') }}">Logout</a>
+                </header>
+            {% else %} 
+                <header class="sticky top-0 left-0 w-full h-24 font-bold flex items-center justify-center z-50 bg-[#00424A] text-[#F1F1F1]">
+                    {% if app.request.attributes.get('_route') in ['app_article_index','app_article_new','app_article_show','app_article_edit']  %} 
+                        <a class="flex border-b-8 border-white w-full h-full items-center justify-around" href="{{ path('app_article_index') }}">Articles</a> 
+                    {% else %}
+                        <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_article_index') }}">Articles</a>
+                    {% endif %} 
+                    {% if app.request.attributes.get('_route') in ['app_build_index','app_build_new','app_build_show','app_build_edit']  %}
+                        <a class="flex border-b-8 border-white w-full h-full items-center justify-around" href="{{ path('app_build_index') }}">Builds</a> 
+                    {% else %}
+                        <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_build_index') }}">Builds</a> 
+                    {% endif %}
+                    {% if app.request.attributes.get('_route') in ['app_champion_index','app_champion_new','app_champion_show','app_champion_edit']  %} 
+                        <a class="flex border-b-8 border-white  w-full h-full items-center justify-around" href="{{ path('app_champion_index') }}">Champions</a> 
+                    {% else %}
+                        <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_champion_index') }}">Champions</a>
+                    {% endif %} 
+                    {% if app.request.attributes.get('_route') in ['app_item_index','app_item_new','app_item_show','app_item_edit']  %}
+                        <a class="flex border-b-8 border-white  w-full h-full items-center justify-around" href="{{ path('app_item_index') }}">Items</a> 
+                    {% else %}
+                        <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_item_index') }}">Items</a> 
+                    {% endif %}
+                    {% if app.user %}
+                        <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_profil') }}">Profil</a>
+                    {% else %}
+                        <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_login') }}">Login</a>
+                    {% endif %}                   
+                </header>
+            {% endif %}
         {% endif %}
     <body class="bg-[#F1F1F1] dark:bg-[#3B3C44] dark:text-[#F1F1F1]">
         {% block body %}{% endblock %}
