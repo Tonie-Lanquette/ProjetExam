@@ -21,10 +21,10 @@ class ArticleType extends AbstractType
             ->add('core_explication')
             ->add('optional_explication')
             ->add('conclusion')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
             ->add('build', EntityType::class, [
                 'class' => Build::class,
                 'choice_label' => 'id',

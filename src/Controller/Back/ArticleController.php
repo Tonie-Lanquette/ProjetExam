@@ -26,7 +26,11 @@ final class ArticleController extends AbstractController
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $creator = $this->getUser();
+
         $article = new Article();
+
+        $article->setUser($creator);
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 

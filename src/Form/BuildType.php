@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Build;
 use App\Entity\Champion;
+use App\Entity\Item;
+use App\Entity\Slot;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,6 +21,22 @@ class BuildType extends AbstractType
                 'class' => Champion::class,
                 'choice_label' => 'id',
             ])
+            //from Slotype
+            ->add('category', EntityType::class,[
+                'class' => Slot::class,
+                
+            ])
+            // ->add('build', EntityType::class, [
+            //     'class' => Build::class,
+            //     'choice_label' => 'id',
+            // ])
+            ->add('item', EntityType::class, [
+                'class' => Item::class,
+                'expanded' => true,
+                'choice_label' => 'name',
+                'multiple' => true,
+            ])
+            //from Slotype
             ->add('visibility')
         ;
     }
