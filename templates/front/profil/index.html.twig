@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+
+    <h1>Profil</h1>
+
+        <p>{{user.username}}</p>
+        <p>{{ user.email }}</p>
+         <p>Email : <input type="text" value="{{ user.email }}"></p>
+    
+        <p>Mot de passe : <input type="password" value="********" readonly></p>
+    
+
+{% endblock %}
