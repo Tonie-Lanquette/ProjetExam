@@ -16,7 +16,7 @@
         {% endblock %}
     </head>
         
-    <body class="bg-[#F1F1F1] dark:bg-[#3B3C44] dark:text-[#F1F1F1] flex flex-col min-h-screen">
+    <body class="bg-[#F1F1F1] dark:bg-[#3B3C44] dark:text-[#F1F1F1] flex flex-col items-center min-h-screen">
     {% if app.request.attributes.get('_route') in ['app_login'] %}
     {% else %}
             {% if is_granted('ROLE_ADMIN') and app.request.pathInfo matches('/admin/') %}
@@ -80,7 +80,7 @@
 
         {% block body %}{% endblock %} 
         
-    <footer class="bg-[#4A0026] flex flex-col pb-2 mt-auto">
+    <footer class="bg-[#4A0026] flex flex-col pb-2 mt-auto w-full">
         <div class="flex justify-evenly my-20">
             <div>
                 <h1 class="text-xl font-bold mb-4">Legendarift :</h1>
