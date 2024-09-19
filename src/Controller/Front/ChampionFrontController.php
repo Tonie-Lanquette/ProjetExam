@@ -2,6 +2,7 @@
 
 namespace App\Controller\Front;
 
+use App\Repository\ChampionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,10 +11,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class ChampionFrontController extends AbstractController
 {
     #[Route(name: 'app_champion_front_index')]
-    public function index(): Response
+    public function index(ChampionRepository $championRepository): Response
     {
+        $champions = $championRepository->findAll();
+
         return $this->render('front/champion/index.html.twig', [
-            'controller_name' => 'ChampionFrontController',
+            'champions'-> $champions
         ]);
     }
 }
