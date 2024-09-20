@@ -22,8 +22,13 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          
 
+            $password = $form->get('plainPassword')->getData();
+            $confirmationPassword = $form->get('confirmationPassword')->getData();
+            if ($password !== $confirmationPassword) {
+                $this->addFlash('error', 'Password and confirmation password do not match');
+                return $this->redirectToRoute('app_register');
+            }
             $plainPassword = $form->get('plainPassword')->getData();
             
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword))
@@ -35,6 +40,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Your account has been successfully created');
             return $security->login($user, 'form_login', 'main');
         }
 

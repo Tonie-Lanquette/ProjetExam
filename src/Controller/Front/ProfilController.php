@@ -35,9 +35,9 @@ class ProfilController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $data = $form->getData();
-            $currentPassword = $data['current_password'];
-            $newPassword = $data['new_password'];
-            $confirmPassword = $data['confirm_password'];
+            $currentPassword = $data['currentPassword'];
+            $newPassword = $data['newPassword'];
+            $confirmPassword = $data['confirmPassword'];
 
             if (!$userPasswordHasher->isPasswordValid($user, $currentPassword)) {
                 $this->addFlash('error', 'Current password is incorrect.');

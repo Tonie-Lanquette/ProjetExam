@@ -8,17 +8,24 @@
             <h1 class="text-4xl font-bold text-center mb-10">Register</h1>
 
             {{ form_errors(registrationForm) }}
-
+            
             {{ form_start(registrationForm) }}
                 {{ form_row(registrationForm.username) }}
                 {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.plainPassword, {
-                    label: 'Password'
+                    label: 'Password :'
+                }) }}
+                {{ form_row(registrationForm.confirmationPassword, {
+                    label: 'Confirmation password :'
                 }) }}
                 {{ form_row(registrationForm.agreeTerms) }}
 
                 <a href="{{ path('app_login') }}" class="underline mt-[-30px] mb-10">Already have an account ?</a>
-
+            {% for message in app.flashes('error') %}
+                 <div class="text-red-950 px-2 py-1 bg-red-500/50 border-2 border-red-500 rounded-md w-fit mx-auto font-bold text-center my-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
 
                 <div class="flex justify-end">
                     <button type="submit" class="font-bold text-[#202020] bg-[#65C986] rounded-md py-2 px-4">Register</button>
