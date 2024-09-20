@@ -3,21 +3,32 @@
 {% block title %}Profil{% endblock %}
 
 {% block body %}
-    <div class="text-center w-1/2 flex flex-col items-center">  
-        <h1 class="text-6xl my-20">{{user.username}}</h1>
+    {% if app.user %}
+    {% for message in app.flashes('success') %}
+            <div class="text-green-700 p-2 bg-green-200 rounded-md w-fit ml-[15%]">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="text-center w-1/2 flex flex-col items-center">  
+            <h1 class="text-6xl my-20">{{user.username}}</h1>
+            
+            <div class="mb-6 w-3/4 flex flex-col justify-center">
+                <p class="text-left">Your email :</p> 
+                <input type="text" class="text-[#202020] pl-2 mt-2 w-full rounded-md border-2 border-[#65C986]" value="{{ user.email }}" >
+            </div>
         
-        <div class="mb-6 w-3/4 flex flex-col justify-center">
-            <p class="text-left">Your email :</p> 
-            <input type="text" class="text-[#202020] pl-2 mt-2 w-full rounded-md border-2 border-[#65C986]" value="{{ user.email }}" >
+            <div class="mb-6 w-3/4 flex flex-col justify-center">
+                <p class="text-left">Your password : </p>
+                <input type="password" class="text-[#202020] pl-2 my-2 w-full rounded-md border-2 border-[#65C986]" value="********" readonly>
+                <a href="{{ path('app_change_password') }}"><p class="text-right underline">Change password</p></a>
+            </div>
+             
+            <a class="bg-[#65C986] py-2 px-4 rounded-md text-[#202020] font-bold" href="{{ path('app_logout') }}">Logout</a> 
         </div>
-    
-        <div class="mb-6 w-3/4 flex flex-col justify-center">
-            <p class="text-left">Your password : </p>
-            <input type="password" class="text-[#202020] pl-2 mt-2 w-full rounded-md border-2 border-[#65C986]" value="********" readonly>
-        </div>
-
-        <a class="bg-[#65C986] py-2 px-4 rounded-md text-[#202020] font-bold" href="{{ path('app_logout') }}">Logout</a> 
-    </div>
-   
+    {% else %}
+        <script>
+        window.location.href = "{{ path('app_login') }}";
+    </script>
+   {% endif %}
 
 {% endblock %}
