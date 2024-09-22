@@ -16,7 +16,7 @@
         {% endblock %}
     </head>
         
-    <body class="bg-[#F1F1F1] dark:bg-[#3B3C44] dark:text-[#F1F1F1] flex flex-col items-center min-h-screen">
+    <body class="bg-[#F1F1F1] dark:bg-[#3B3C44] dark:text-[#F1F1F1] flex flex-col items-center min-h-screen w-full">
 
     {% if app.request.attributes.get('_route') in ['app_login','app_register'] %}
     {% else %}
