@@ -5,9 +5,9 @@ namespace App\Form;
 use App\Entity\Build;
 use App\Entity\Champion;
 use App\Entity\Item;
-use App\Entity\Slot;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,20 +21,14 @@ class BuildType extends AbstractType
                 'class' => Champion::class,
                 'choice_label' => 'name',
             ])
-
-            // ->add('category', EntityType::class,[
-            //     'class' => Slot::class,
-                
-            // ])
-
-            // ->add('item', EntityType::class, [
-            //     'class' => Item::class,
-            //     'expanded' => true,
-            //     'choice_label' => 'name',
-            //     'multiple' => true,
-            // ])
-            //from Slotype
             ->add('visibility')
+            ->add('slots', CollectionType::class, [
+            'entry_type' => SlotType::class, 
+            'entry_options' => array('label' => false),
+            'allow_add' => true, 
+            'allow_delete' => true, 
+            // 'by_reference' => false, // Nécessaire pour les relations OneToMany
+        ])
         ;
     }
 
