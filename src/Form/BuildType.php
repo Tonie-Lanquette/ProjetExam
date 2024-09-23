@@ -19,23 +19,20 @@ class BuildType extends AbstractType
             ->add('title')
             ->add('champion', EntityType::class, [
                 'class' => Champion::class,
-                'choice_label' => 'id',
-            ])
-            //from Slotype
-            ->add('category', EntityType::class,[
-                'class' => Slot::class,
-                
-            ])
-            // ->add('build', EntityType::class, [
-            //     'class' => Build::class,
-            //     'choice_label' => 'id',
-            // ])
-            ->add('item', EntityType::class, [
-                'class' => Item::class,
-                'expanded' => true,
                 'choice_label' => 'name',
-                'multiple' => true,
             ])
+
+            // ->add('category', EntityType::class,[
+            //     'class' => Slot::class,
+                
+            // ])
+
+            // ->add('item', EntityType::class, [
+            //     'class' => Item::class,
+            //     'expanded' => true,
+            //     'choice_label' => 'name',
+            //     'multiple' => true,
+            // ])
             //from Slotype
             ->add('visibility')
         ;
