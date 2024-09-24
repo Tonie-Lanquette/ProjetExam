@@ -26,14 +26,12 @@ class SlotType extends AbstractType
                 'expanded' => false, 
                 'label'    => 'Category',
             ])
-            ->add('build', EntityType::class, [
-                'class' => Build::class,
-                'choice_label' => 'id',
-            ])
             ->add('item', EntityType::class, [
                 'class' => Item::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
+                'label' => 'Items :',
+                // 'expanded' => true,
             ])
         ;
     }

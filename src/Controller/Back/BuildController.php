@@ -3,8 +3,6 @@
 namespace App\Controller\Back;
 
 use App\Entity\Build;
-use App\Entity\Slot;
-use App\Form\BuildSlotType;
 use App\Form\BuildType;
 use App\Repository\BuildRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,42 +51,6 @@ final class BuildController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    // Dans le contrôleur BuildController
-    #[Route('/new_combined', name: 'app_build_slot_new', methods: ['GET', 'POST'])]
-    public function newCombined(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $creator = $this->getUser();
-
-        $build = new Build();
-        $build->setCreator($creator);
-
-        $slot = new Slot();
-
-        $form = $this->createForm(BuildSlotType::class, $build);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $build->setCreated(new \DateTimeImmutable());
-            $build->setUpdated(new \DateTimeImmutable());
-
-            // Persister Build
-            $entityManager->persist($build);
-
-            // Persister Slot lié au Build (vous devez gérer cette association)
-            $slot->setBuild($build);
-            $entityManager->persist($slot);
-
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_build_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('admin/build/completeBuild.html.twig', [
-            'form' => $form,
-        ]);
-    }
-
 
     #[Route('/{id}', name: 'app_build_show', methods: ['GET'])]
     public function show(Build $build): Response

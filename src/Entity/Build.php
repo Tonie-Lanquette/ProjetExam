@@ -28,8 +28,6 @@ class Build
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updated = null;
 
-   
-
     #[ORM\ManyToOne(inversedBy: 'builds')]
     private ?Champion $champion = null;
 
@@ -42,7 +40,7 @@ class Build
     /**
      * @var Collection<int, Slot>
      */
-    #[ORM\OneToMany(targetEntity: Slot::class, mappedBy: 'build')]
+    #[ORM\OneToMany(targetEntity: Slot::class, mappedBy: 'build', orphanRemoval: true, cascade:['persist'])]
     private Collection $slots;
 
     /**
