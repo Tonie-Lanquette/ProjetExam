@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Build{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.champion) }}
+     
+        {{ form_widget(form.slots) }}
+        
+    {{ form_row(form.visibility) }}
+        <button type="submit">Save</button>
+    {{ form_end(form) }}
+
+{% endblock %}
