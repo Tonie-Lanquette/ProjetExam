@@ -10,13 +10,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/champion')]
 class ChampionFrontController extends AbstractController
 {
-    #[Route( 's' , name: 'app_champion_front_index')]
+    #[Route('s', name: 'app_champion_front_index')]
     public function index(ChampionRepository $championRepository): Response
     {
         $champions = $championRepository->findAll();
 
         return $this->render('front/champion/index.html.twig', [
-            'champions'=> $champions
+            'champions' => $champions
         ]);
     }
 

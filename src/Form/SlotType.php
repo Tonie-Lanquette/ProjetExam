@@ -23,7 +23,7 @@ class SlotType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'label' => '',
-                // 'expanded' => true,
+                'expanded' => true,
             ])
         ;
     }

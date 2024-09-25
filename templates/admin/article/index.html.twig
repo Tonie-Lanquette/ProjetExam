@@ -3,7 +3,51 @@
 {% block title %}Article index{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
+
+<div class="flex flex-col justify-center items-center w-full">
+    <h1 class="text-4xl font-bold text-center mt-16 mb-6">
+        All articles
+    </h1>
+    
+    <div class="flex flex-col items-center width-full font-bold">
+        <a href="{{ path('app_article_new') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] py-2 px-3 rounded-xl mb-4">Create new</a>
+    </div>
+
+
+<div class="flex w-full justify-evenly items-center mt-10 mb-36">
+        <div class="scroll-hidden scroll-x-hidden h-[1200px] w-5/6 bg-[#F1F1F1] dark:bg-[#494A56] drop-shadow-md rounded-lg">
+            <table class="w-full bg-[#F1F1F1] dark:bg-[#494A56] border-collapse">
+                <thead class="bg-[#00424A] h-20 text-2xl text-[#F1F1F1] font-bold sticky top-0 ">
+                    <tr>
+                        <th class="w-2/6 rounded-tl-lg ml-10">Title</th>
+                        <th class="w-1/6">Build</th>
+                        <th class="w-2/6">Explication</th>
+                        <th class="w-1/6 rounded-tr-lg">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles %}
+                        <tr class="text-center items-center h-full border-y-2 border-[#3B3C44]">
+                            <td>{{ article.title }}</td>
+                            <td>{{ article.build.title }}</td>
+                            <td>{{ article.introduction }}<br>{{ article.starterExplication }}<br>{{ article.coreExplication }}<br>{{ article.optionalExplication }}<br>{{ article.conclusion }}</td>
+                            <td>
+                                <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
+                                <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    {# <h1>Article index</h1>
 
     <table class="table">
         <thead>
@@ -11,7 +55,7 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Introduction</th>
-                <th>Starter_explication</th>
+                <th>Starter explication</th>
                 <th>Core_explication</th>
                 <th>Optional_explication</th>
                 <th>Conclusion</th>
@@ -41,5 +85,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_article_new') }}">Create new</a>
+    <a href="{{ path('app_article_new') }}">Create new</a> #}
 {% endblock %}

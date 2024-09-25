@@ -3,18 +3,38 @@
 {% block title %}Hello BuildFrontController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1 class="text-6xl my-28">All builds</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="flex flex-col w-full px-20 my-20 justify-center">
+        {% for build in builds %}
+            <div class="flex mx-16 my-16 text-center bg-[#494A56] rounded-md h-36">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/tonie/Documents/projet_final/Legendarift/src/Controller/BuildFrontController.php</code></li>
-        <li>Your template at <code>C:/Users/tonie/Documents/projet_final/Legendarift/templates/build_front/index.html.twig</code></li>
-    </ul>
-</div>
+                {# image #}
+                <img src="{{ build.champion.squarePortrait }}" alt="{{ build.champion.name }}" class="self-left rounded-tl-md rounded-bl-md">
+
+                {# title + object #}
+                <div class="h-full flex flex-col justify-center w-full">
+                    <div class="flex px-6 w-full">
+                        <p class="capitalize">{{build.title}}</p>
+                        <p>Creation : {{build.created|date("d/m/Y")}}</p>
+                    </div>
+                    
+                    <div class="flex w-full">
+                    {% for slot in build.slots %}              
+                        {% for item in slot.item %}
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="mx-4 rounded-full">
+                        {% endfor %}
+                    {% endfor %}
+                    </div>
+                </div>
+
+                {# like/dislike #}
+                <div class="border-l-2 border-[#3B3C44] ml-auto h-full flex items-center justify-center px-4">
+                    <p>like</p>
+                </div>
+            </div>        
+        {% else %}
+            <p>It seems that an error occurred while loading this page. Please excuse us for the inconvenience caused.</p>
+        {% endfor %}
+    </div>
 {% endblock %}

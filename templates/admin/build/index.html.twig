@@ -18,19 +18,20 @@
             <table class="w-full bg-[#F1F1F1] dark:bg-[#494A56] border-collapse">
                 <thead class="bg-[#00424A] h-20 text-2xl text-[#F1F1F1] font-bold sticky top-0">
                     <tr>
-                        <th class="w-1/6 rounded-tl-lg">Title</th>
-                        <th class="w-1/6">Start Items</th>
-                        <th class="w-1/6">Core Items</th>
-                        <th class="w-1/6">Optional Items</th>
-                        <th class="w-1/6">Private</th>
-                        <th class="w-1/6 rounded-tr-lg">Actions</th>
+                        <th class="w-1/12 rounded-tl-lg">Title</th>
+                        <th class="w-1/12 rounded-tl-lg">Champion</th>
+                        <th class="w-1/12">Start Items</th>
+                        <th class="w-1/12">Core Items</th>
+                        <th class="w-1/12">Optional Items</th>
+                        <th class="w-1/12">Private</th>
+                        <th class="w-1/12 rounded-tr-lg">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for build in builds %}
                         <tr class="text-center items-center h-full border-y-2 border-[#3B3C44]">
                             <td>{{ build.title }}</td>
-                            
+                            <td><img src="{{ build.champion.squarePortrait }}" alt="{{ build.champion.name }}" class="mx-auto mb-2"></td>
                             <td>
                                 {% for slot in build.slots %}
                                     {% if slot.category == 'starter_items' %}
@@ -58,18 +59,6 @@
                                     {% endif %}
                                 {% endfor %}
                             </td>
-
-
-                                {# {% for slot in build.slots %}
-
-                                    {% for item in slot.item %}
-
-                                    <td><img src="{{ item.icon }}" alt="slot's splash art" class="mx-auto"></td>
-
-                                    {% endfor %}
-                                    
-                                {% endfor %} #}
-
                                 <td>{{ build.visibility ? 'Yes' : 'No' }}</td>
                                 <td>
                                 <a href="{{ path('app_build_show', {'id': build.id}) }}">show</a>
@@ -86,4 +75,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
