@@ -10,38 +10,36 @@ export default class extends Controller {
         btn.addEventListener('click', this.addElement);
         this.element.append(btn);
         
-        // Automatically click the button 3 times to generate the slots
-        btn.click(); // First (Starter Items)
-        btn.click(); // Second (Core Items)
-        btn.click(); // Third (Optional Items)
-        
-        btn.setAttribute('class', 'hidden'); // Hide the button after adding 3 slots
+        btn.click();
+        btn.click(); 
+        btn.click(); 
+        btn.setAttribute('class', 'hidden'); 
     }
 
     addElement = (e) => {
         e.preventDefault();
         
-        // Create new form element based on the prototype
+       
         const element = document.createRange().createContextualFragment(
             this.element.dataset['prototype'].replaceAll('__name__', this.index)
         ).firstElementChild;
         
-        // Add the form element before the button
+       
         this.index++;
         e.currentTarget.insertAdjacentElement('beforebegin', element);
         
-        // Set the default selected value for the category dropdown based on the index
-        const categorySelect = element.querySelector('select[name$="[category]"]');
-        if (categorySelect) {
+      
+        const categoryInput = element.querySelector('input[name$="[category]"]');
+        if (categoryInput) {
             switch (this.index - 1) {
                 case 0:
-                    categorySelect.value = 'starter_items';
+                    categoryInput.value = 'starter_items';
                     break;
                 case 1:
-                    categorySelect.value = 'core_items';
+                    categoryInput.value = 'core_items';
                     break;
                 case 2:
-                    categorySelect.value = 'optional_items';
+                    categoryInput.value = 'optional_items';
                     break;
                 default:
                     break;
