@@ -9,5 +9,25 @@
 }
 
 .scroll-x-hidden {
-    overflow-y: scroll;
+    overflow-x: scroll;
+    
+}
+
+.scroll-x-hidden::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+
+}
+
+.scroll-x-hidden:hover::-webkit-scrollbar {
+    width: 8px;
+    /* Tu peux ajuster cette valeur selon tes besoins */
+    background: rgba(0, 0, 0, 0);
+    /* L'arrière-plan de la barre */
+}
+.scroll-x-hidden:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    /* Style du bouton de défilement */
+    border-radius: 4px;
+    /* Bord arrondi pour un effet plus esthétique */
 }

@@ -5,21 +5,27 @@
 {% block body %}
     <h1 class="text-6xl my-28">All builds</h1>
 
-    <div class="flex flex-col w-full px-20 my-20 justify-center">
+    <p class="text-2xl mb-20">Contribute to our community by sharing your knowledge and theorizing about the best (or worst) possible builds.</p>
+
+    <div class="flex flex-col items-center w-full font-bold text-center px-40">
+        <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] py-2 px-3 rounded-xl mb-4 w-full">Create New Build</a>
+    </div>
+
+    <div class="flex flex-col w-full px-20 my-20 justify-center drop-shadow-lg">
         {% for build in builds %}
-            <div class="flex mx-16 my-16 text-center bg-[#494A56] rounded-md h-36">
+            <div class="flex mx-16 my-16 text-center bg-[#494A56] rounded-md h-48">
 
                 {# image #}
                 <img src="{{ build.champion.squarePortrait }}" alt="{{ build.champion.name }}" class="self-left rounded-tl-md rounded-bl-md">
 
                 {# title + object #}
-                <div class="h-full flex flex-col justify-center w-full">
-                    <div class="flex px-6 w-full">
-                        <p class="capitalize">{{build.title}}</p>
+                <div class="h-full flex flex-col justify-around w-full pb-4">
+                    <div class="flex px-6 w-full justify-between">
+                        <p class="capitalize font-bold text-2xl">{{build.title}}</p>
                         <p>Creation : {{build.created|date("d/m/Y")}}</p>
                     </div>
                     
-                    <div class="flex w-full">
+                    <div class="flex w-full scroll-x-hidden px-5">
                     {% for slot in build.slots %}              
                         {% for item in slot.item %}
                             <img src="{{ item.icon }}" alt="{{ item.name }}" class="mx-4 rounded-full">
