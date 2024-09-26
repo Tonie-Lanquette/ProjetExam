@@ -4,7 +4,6 @@ namespace App\Controller\Front;
 
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -28,7 +27,6 @@ class ArticleFrontController extends AbstractController
         if (!$article) {
             throw $this->createNotFoundException('Article not found');
         };
-        // dd($article);
         return $this->render('front/article/details.html.twig', [
             'article' => $article
         ]);

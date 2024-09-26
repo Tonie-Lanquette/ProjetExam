@@ -5,21 +5,21 @@
 {% block body %}
     <h1 class="text-6xl my-28">All Articles</h1>
      
-    <div class="flex flex-wrap w-full space-y-20 justify-center drop-shadow-lg mb-40">
+    <div class="flex flex-wrap w-full space-y-20 justify-center drop-shadow-lg mb-40 ">
         {% for article in articles %}
             <a href="{{ path('app_article_front_details' , {'title': article.title}) }}">
-                <div class="flex flex-col text-center bg-[#494A56] rounded-md h-96 w-64 mx-20">
+                <div class="flex flex-col text-center bg-[#494A56] rounded-md h-[470px] w-64 mx-20 space-y-2">
                     <img src="{{ article.build.champion.splashArt }}" alt="{{ article.build.champion.name }}" class="rounded-tl-md rounded-tr-md w-full">
-                    <div class="px-4 h-full">
-                        <p class="capitalize mt-4 text-2xl font-bold">{{ article.title }}</p>
+                    <div class="px-4 space-y-4 h-full ">
+                        <p class="capitalize mt-4 text-2xl font-bold max-h-[64px] line-clamp-2 overflow-hidden text-ellipsis">{{ article.title }}</p>
                         <p>Build : 
                             <a class="hover:underline hover:text-[#65C986] capitalize italic" href="{{ path('app_build_front_details' , {'title': article.build.title}) }}">
                                 {{ article.build.title }}
                             </a>
                         </p>
-                        <p class="h-28 mt-1 text-sm text-overflow">{{ article.introduction }}</p>
+                        <p class="text-sm introduction line-clamp-6 overflow-hidden text-ellipsis">{{ article.introduction }}</p>
                     </div>
-                    <p class="border-t-2 border-[#3B3C44] mt-auto py-1 px-2 text-xs text-end">By : {{article.user.username}}</p>
+                    <p class="border-t-2 border-[#3B3C44] mt-auto py-2 px-4 text-xs text-end">By : {{article.user.username}}</p>
                 </div>
             </a>
         {% endfor %} 

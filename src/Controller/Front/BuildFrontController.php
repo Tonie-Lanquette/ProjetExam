@@ -15,7 +15,6 @@ class BuildFrontController extends AbstractController
     public function index(BuildRepository $buildRepository): Response
     {
         $builds = $buildRepository->findAll();
-        // dd($builds);
 
         return $this->render('front/build/index.html.twig', [
             'builds' => $builds
