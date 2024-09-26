@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ build.title }}{% endblock %}
+
+{% block body %}
+    <div class="w-full mb-20 relative ">
+        <img src="{{ build.champion.splashArt }}" alt="{{ build.champion.name}}'s splash art" class="w-full z-0">
+        <div class="absolute inset-x-0 bottom-0 h-2/4 bg-gradient-to-b from-transparent dark:to-[#3B3C44] to-[#F1F1F1] z-10 flex items-center"> 
+            <div class="flex flex-col items-center w-full">
+                <div class="flex w-5/6 items-end mb-10 font-semibold">
+                    <h1 class="w-1/2 text-9xl">{{ build.champion.name }}</h1> 
+                    <p class="text-5xl mb-2">Categories : {{ build.champion.role }}</p>
+                </div>
+                <p class="w-5/6 text-2xl">{{ build.champion.description }}</p>
+            </div>
+        </div>
+    </div>
+    <h1 class="capitalize text-7xl">{{ build.title }}</h1>
+    <div class="space-y-20 mt-20 mb-20 ">
+        <div>
+            <h2 class="text-3xl mb-8">Start Items :</h2> 
+            <div class="flex space-x-8 border-4 border-[#65C986] rounded-md py-4 px-8 justify-center">
+                {% for slot in build.slots %}
+                    {% if slot.category == 'starter_items' %}
+                        {% for item in slot.item %}
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24 ">
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div>           
+            <h2 class="text-3xl mb-8">Core Items :</h2>
+            <div class="flex space-x-8 border-4 border-[#65C986] rounded-md py-4 px-8 justify-center">                
+                {% for slot in build.slots %}
+                    {% if slot.category == 'core_items' %}
+                        {% for item in slot.item %}
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24">
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <h2 class="text-3xl mb-8">Optional Items :</h2>
+            <div class="flex space-x-8 border-4 border-[#65C986] rounded-md py-4 px-8 justify-center">                    
+                {% for slot in build.slots %}
+                    {% if slot.category == 'optional_items' %}
+                        {% for item in slot.item %}
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24">
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+         </div>                            
+    </div>
+    <div class="mb-40 space-x-10">
+        <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md mb-4 w-full">Make my own build</a>
+        {% if article %}
+            <a href="{{ path('app_article_front_details', {'title': article.title}) }}" 
+             class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md mb-4 w-full">
+                Explanation
+            </a>
+        {% endif %}
+    </div>    
+{% endblock %}

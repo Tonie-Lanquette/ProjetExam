@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BuildFrontController!{% endblock %}
+{% block title %}All builds{% endblock %}
 
 {% block body %}
     <h1 class="text-6xl my-28">All builds</h1>
 
-    <p class="text-2xl mb-20">Contribute to our community by sharing your knowledge and theorizing about the best (or worst) possible builds.</p>
+    <p class="text-2xl mb-20 mx-20 text-center">Contribute to our community by sharing your knowledge and theorizing about the best (or worst) possible builds.</p>
 
-    <div class="flex flex-col items-center w-full font-bold text-center px-40">
+    <div class="flex flex-col items-center w-full font-bold text-center px-40 mb-20">
         <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] py-2 px-3 rounded-xl mb-4 w-full">Create New Build</a>
     </div>
 
-    <div class="flex flex-col w-full px-20 my-20 justify-center drop-shadow-lg">
+    <div class="flex flex-col w-full px-20 space-y-20 justify-center drop-shadow-lg mb-40">
         {% for build in builds %}
-            <div class="flex mx-16 my-16 text-center bg-[#494A56] rounded-md h-48">
+        <a href="{{ path('app_build_front_details' , {'title': build.title}) }}">
+            <div class="flex mx-16 text-center bg-[#494A56] rounded-md h-48">
 
                 {# image #}
                 <img src="{{ build.champion.squarePortrait }}" alt="{{ build.champion.name }}" class="self-left rounded-tl-md rounded-bl-md">
@@ -25,10 +26,10 @@
                         <p>Creation : {{build.created|date("d/m/Y")}}</p>
                     </div>
                     
-                    <div class="flex w-full scroll-x-hidden px-5">
+                    <div class="flex w-full scroll-x-hidden px-5 space-x-6">
                     {% for slot in build.slots %}              
                         {% for item in slot.item %}
-                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="mx-4 rounded-full">
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full">
                         {% endfor %}
                     {% endfor %}
                     </div>
@@ -38,7 +39,8 @@
                 <div class="border-l-2 border-[#3B3C44] ml-auto h-full flex items-center justify-center px-4">
                     <p>like</p>
                 </div>
-            </div>        
+            </div>
+            </a>        
         {% else %}
             <p>It seems that an error occurred while loading this page. Please excuse us for the inconvenience caused.</p>
         {% endfor %}
