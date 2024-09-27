@@ -5,12 +5,32 @@
 .scroll-hidden::-webkit-scrollbar {
     width: 0px;
     background: transparent;
- 
+
+}
+
+.scroll-hidden-front {
+    overflow-y: scroll;
+}
+
+.scroll-hidden-front::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+
+}
+
+.scroll-hidden-front:hover::-webkit-scrollbar {
+    width: 8px;
+    background: rgba(0, 0, 0, 0);
+}
+
+.scroll-hidden-front:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
 }
 
 .scroll-x-hidden {
     overflow-x: scroll;
-    
+
 }
 
 .scroll-x-hidden::-webkit-scrollbar {
@@ -21,13 +41,10 @@
 
 .scroll-x-hidden:hover::-webkit-scrollbar {
     width: 8px;
-    /* Tu peux ajuster cette valeur selon tes besoins */
     background: rgba(0, 0, 0, 0);
-    /* L'arrière-plan de la barre */
 }
+
 .scroll-x-hidden:hover::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.4);
-    /* Style du bouton de défilement */
     border-radius: 4px;
-    /* Bord arrondi pour un effet plus esthétique */
 }
