@@ -66,6 +66,9 @@ class CreateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $article->setCreated(new \DateTimeImmutable());
+
             $entityManager->persist($article);
             $entityManager->flush();
 

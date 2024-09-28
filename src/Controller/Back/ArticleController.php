@@ -35,6 +35,9 @@ final class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $article->setCreated(new \DateTimeImmutable());
+            
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -62,6 +65,9 @@ final class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $article->setCreated(new \DateTimeImmutable());
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
