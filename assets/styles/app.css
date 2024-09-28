@@ -1,3 +1,50 @@
-body {
-    background-color: skyblue;
+.scroll-hidden {
+    overflow-y: scroll;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+
+}
+
+.scroll-hidden-front {
+    overflow-y: scroll;
+}
+
+.scroll-hidden-front::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+
+}
+
+.scroll-hidden-front:hover::-webkit-scrollbar {
+    width: 8px;
+    background: rgba(0, 0, 0, 0);
+}
+
+.scroll-hidden-front:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
+
+.scroll-x-hidden {
+    overflow-x: scroll;
+
+}
+
+.scroll-x-hidden::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+
+}
+
+.scroll-x-hidden:hover::-webkit-scrollbar {
+    width: 8px;
+    background: rgba(0, 0, 0, 0);
+}
+
+.scroll-x-hidden:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
 }

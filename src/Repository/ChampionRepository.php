@@ -16,6 +16,12 @@ class ChampionRepository extends ServiceEntityRepository
         parent::__construct($registry, Champion::class);
     }
 
+    public function update(){
+
+        $url= 'https://ddragon.leagueoflegends.com/cdn/14.17.1/data/en_GB/champion.json';
+        
+
+    }
     //    /**
     //     * @return Champion[] Returns an array of Champion objects
     //     */

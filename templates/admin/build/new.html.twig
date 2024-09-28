@@ -1,0 +1,20 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}New Build{% endblock %}
+
+{% block body %}
+    <h1>Create new Build</h1>
+    
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.champion) }}
+     
+        {{ form_widget(form.slots) }}
+        
+    {{ form_row(form.visibility) }}
+        <button type="submit">Save</button>
+    {{ form_end(form) }}
+    
+
+    <a href="{{ path('app_build_index') }}">back to list</a>
+{% endblock %}

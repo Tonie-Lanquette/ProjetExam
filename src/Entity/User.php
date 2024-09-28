@@ -7,12 +7,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['username'], message: 'This username is already taken')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -65,11 +68,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'user')]
     private Collection $votes;
 
+    /**
+     * @var Collection<int, Build>
+     */
+    #[ORM\OneToMany(targetEntity: Build::class, mappedBy: 'creator')]
+    private Collection $builds;
+
     public function __construct()
     {
         $this->favorite = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->votes = new ArrayCollection();
+        $this->builds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -273,6 +283,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($vote->getUser() === $this) {
                 $vote->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Build>
+     */
+    public function getBuilds(): Collection
+    {
+        return $this->builds;
+    }
+
+    public function addBuild(Build $build): static
+    {
+        if (!$this->builds->contains($build)) {
+            $this->builds->add($build);
+            $build->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBuild(Build $build): static
+    {
+        if ($this->builds->removeElement($build)) {
+            // set the owning side to null (unless already changed)
+            if ($build->getCreator() === $this) {
+                $build->setCreator(null);
             }
         }
 
