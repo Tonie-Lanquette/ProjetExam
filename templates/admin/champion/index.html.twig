@@ -1,0 +1,52 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Champion index{% endblock %}
+
+{% block body %}
+<div class="flex flex-col justify-center items-center w-full">
+    <h1 class="text-4xl font-bold text-center mt-16 mb-6">
+        All champions
+    </h1>
+    <div class="flex flex-col items-center width-full font-bold">
+    <a href="{{ path('app_champion_update')}}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] py-2 px-3 rounded-xl mb-4 mt-10">Update</a>
+    <a href="{{ path('app_champion_new') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] py-2 px-3 rounded-xl mb-4">Create new</a>
+    </div>
+
+    <div class="flex w-full justify-evenly items-center mt-10 mb-36">
+        <div class="scroll-hidden h-[1200px] w-5/6 bg-[#F1F1F1] dark:bg-[#494A56] drop-shadow-md rounded-lg">
+            <table class="w-full bg-[#F1F1F1] dark:bg-[#494A56] border-collapse">
+                <thead class="bg-[#00424A] h-20 text-2xl text-[#F1F1F1] font-bold sticky top-0">
+                    <tr>
+                        <th class="w-1/6 rounded-tl-lg">Name</th>
+                        <th class="w-1/6">Square Portrait</th>
+                        <th class="w-1/6">Description</th>
+                        <th class="w-1/6">Role</th>
+                        <th class="w-1/6">Splash Art</th>
+                        <th class="w-1/6 rounded-tr-lg">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for champion in champions %}
+                        <tr class="text-center items-center h-full border-y-2 border-[#3B3C44]">
+                            <td>{{ champion.name }}</td>
+                            <td><img src="{{ champion.squarePortrait }}" alt="champion's portrait" class="mx-auto"></td>
+                            <td class="py-4">{{ champion.description }}</td>
+                            <td>{{ champion.role }}</td>
+                            <td><img src="{{ champion.splashArt }}" alt="champion's splash art" class="mx-auto"></td>
+                            <td>
+                                <a href="{{ path('app_champion_show', {'id': champion.id}) }}">show</a>
+                                <a href="{{ path('app_champion_edit', {'id': champion.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+   
+{% endblock %}
