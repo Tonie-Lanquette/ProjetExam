@@ -23,7 +23,7 @@
                 {% for slot in build.slots %}
                     {% if slot.category == 'starter_items' %}
                         {% for item in slot.item %}
-                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24 ">
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24 mt-[8px]">
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
@@ -35,7 +35,7 @@
                 {% for slot in build.slots %}
                     {% if slot.category == 'core_items' %}
                         {% for item in slot.item %}
-                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24">
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24 mt-[8px]">
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
@@ -47,7 +47,7 @@
                 {% for slot in build.slots %}
                     {% if slot.category == 'optional_items' %}
                         {% for item in slot.item %}
-                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24">
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24 mt-[8px]">
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
