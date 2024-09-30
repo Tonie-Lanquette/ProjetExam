@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Champions{% endblock %}
+
+{% block body %}
+    <h1 class="text-6xl my-28">All champions</h1>
+    <div class="flex flex-wrap w-full px-20 my-20 justify-center">
+        {% for champion in champions %}
+            <div class="mx-16 my-16 text-center">
+                <a href="{{ path('app_champion_front_details', {'name': champion.name}) }}">
+                    <img src="{{ champion.squarePortrait }}" alt="champion's portrait" class="mb-2 size-40">
+                    <p>{{ champion.name }}</p>
+                </a>
+            </div>        
+        {% else %}
+            <p>It seems that an error occurred while loading this page. Please excuse us for the inconvenience caused.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+

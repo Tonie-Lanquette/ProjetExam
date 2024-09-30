@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+
+
+    <img src="https://cdn1.epicgames.com/offer/24b9b5e323bc40eea252a10cdd3b2f10/EGS_LeagueofLegends_RiotGames_S1_2560x1440-80471666c140f790f28dff68d72c384b" alt="home page image">
+
+    <div class="fixed z-10 w-full px-10 mt-24 flex flex-col items-end space-y-4">
+        {% for message in app.flashes('success') %}
+            <div class="bg-green-500/50 text-[#F1F1F1]-700 border-2 border-green-500 rounded-md w-fit text-center font-bold p-2">
+                {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="w-full text-center flex flex-col items-center py-28">
+
+        <h1 class="w-2/3 text-9xl mb-28">Legendarift</h1>
+
+        <p class="w-2/3 text-3xl mb-20 leading-relaxed">   
+        <span class="font-bold">Unleash your full potential !</span> <br><br>
+        Optimize your builds and boost your performance in League of Legends. Discover the ultimate tool to craft custom setups, maximize your in-game impact, and reach new heights. <br>
+        Our mission is simple : to provide a platform dedicated to League of Legends players where they can create, share, and discover the best builds for every champion. Whether you're a veteran looking for a new strategy or a beginner eager to improve your gameplay, you'll find a community here ready to share their best tips.
+        </p>
+
+        <h2 class="w-2/3 text-5xl mb-20 mt-40 font-bold">Lastest builds :</h2>
+
+        <div class="flex flex-col px-20 space-y-20 justify-center drop-shadow-lg mb-40">
+        {% for build in builds %}
+        <a href="{{ path('app_build_front_details' , {'title': build.title}) }}">
+            <div class="flex mx-16 text-center bg-[#494A56] rounded-md h-48">
+
+                {# image #}
+                <img src="{{ build.champion.squarePortrait }}" alt="{{ build.champion.name }}" class="self-left rounded-tl-md rounded-bl-md">
+
+                {# title + object #}
+                <div class="h-full flex flex-col justify-around w-full pb-4">
+                    <div class="flex px-6 w-full justify-between">
+                        <p class="capitalize font-bold text-2xl">{{build.title}}</p>
+                        <p>Creation : {{build.created|date("d/m/Y")}}</p>
+                    </div>
+                    
+                    <div class="flex w-full scroll-x-hidden px-5 space-x-6">
+                    {% for slot in build.slots %}              
+                        {% for item in slot.item %}
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full">
+                        {% endfor %}
+                    {% endfor %}
+                    </div>
+                </div>
+
+                {# like/dislike #}
+                <div class="border-l-2 border-[#3B3C44] ml-auto h-full flex items-center justify-center px-4">
+                    <p>like</p>
+                </div>
+            </div>
+            </a>        
+        {% else %}
+            <p>It seems that an error occurred while loading this page. Please excuse us for the inconvenience caused.</p>
+        {% endfor %}
+        </div>
+
+        <h2 class="w-2/3 text-5xl my-20">Lastest articles :</h2>
+
+        <div class="flex w-5/6 px-20 drop-shadow-lg mb-40">
+        <div class="flex w-full scroll-x-hidden space-x-10">
+            {% for article in articles %}
+                <a href="{{ path('app_article_front_details' , {'title': article.title}) }}">
+                    <div class="flex flex-col text-center bg-[#494A56] rounded-md h-[470px] w-[256px] space-y-2 flex-shrink-0">
+                        <img src="{{ article.build.champion.splashArt }}" alt="{{ article.build.champion.name }}" class="rounded-tl-md rounded-tr-md w-full">
+                        <div class="px-4 space-y-4 h-full ">
+                            <p class="capitalize mt-4 text-2xl font-bold max-h-[64px] line-clamp-2 overflow-hidden text-ellipsis">{{ article.title }}</p>
+                            <p>Build : 
+                                <a class="hover:underline hover:text-[#65C986] capitalize italic" href="{{ path('app_build_front_details' , {'title': article.build.title}) }}">
+                                    {{ article.build.title }}
+                                </a>
+                            </p>
+                            <p class="text-sm introduction line-clamp-6 overflow-hidden text-ellipsis">{{ article.introduction }}</p>
+                        </div>
+                        <div class="flex border-t-2 border-[#3B3C44] mt-auto py-2 px-4 text-xs justify-between">
+                            <p class="text-start">{{article.user.created|date("d/m/Y")}}</p>
+                            <p class="text-end">By : {{article.user.username}}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %} 
+        </div>
+        </div>
+    </div>
+
+{% endblock %}

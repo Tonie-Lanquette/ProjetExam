@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creation{% endblock %}
+
+{% block body %}
+<div class="w-full text-center flex flex-col items-center">
+    <div class="w-4/6">
+        <h1 class="text-6xl my-20 font-bold">Creation</h1>
+
+        
+        <p class="leading-loose">At Legendarift, every player has a unique perspective on the game, and here is where you can share yours. The Creation section allows you to explore your strategic potential by sharing your builds or writing detailed articles to help the League of Legends community push its limits.</p>
+        
+        <h2 class="text-3xl font-bold mb-10 mt-20">Create Unique Builds</h2>
+        <p class="leading-loose">Have you found a game-changing build? Or maybe a combination of runes and items that elevates your champion? On Legendarift, you can bring your ideas to life and share them with thousands of other players. <br> Each build is more than just a list of items: it's a playstyle, a philosophy that can inspire other summoners. Whether you're aiming to dominate your lane, surprise your opponents with unexpected strategies, or fine-tune a build for the current meta, the community is ready to embrace your creations and put them to the test in-game.</p>
+
+        <div class="flex flex-col items-center w-full font-bold my-20">
+            <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] py-2 px-3 rounded-xl">Create new Build</a>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-10 ">Share Your Knowledge Through Articles</h2>
+        <p class="leading-loose">If you love diving into the finer details of the game, writing articles is for you. Analyze champions, break down meta changes, or suggest innovative team strategies. Whether it's a comprehensive guide for a champion you’ve mastered or a deep analysis of the latest game updates, your articles will help the community grow, adapt, and understand what makes a difference at the highest level. At Legendarift, every article you publish is an opportunity to contribute to collective improvement. By sharing your expertise, you help other players get better and inspire them with your successes (and maybe even your mistakes). Your writings will become a reference for those aiming to master</p>
+        <div class="flex flex-col items-center w-full font-bold mb-40 my-20">
+            <a href="{{ path('app_create_article') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] py-2 px-3 rounded-xl">Create new Article</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
