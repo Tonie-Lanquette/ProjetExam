@@ -1,0 +1,84 @@
+{% use 'form_div_layout.html.twig' %}
+
+{%- block form_row -%}
+    {%- set row_attr = row_attr|merge({ class: attr.class|default(row_class|default('mt-16')) }) -%}
+    {{- parent() -}}
+{%- endblock form_row -%}
+
+{%- block widget_attributes -%}
+    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-4 py-2 px-4 w-full text-black bg-white rounded-lg')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-grey-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-delete-border
+    border-2')) }) -%}
+    {%- if form.vars.block_prefixes|last == 'textarea' -%}
+        {%- set attr = attr|merge({ style: '' }) -%}
+    {%- endif -%}
+    {{- parent() -}}
+{%- endblock widget_attributes -%}
+
+{%- block form_label -%}
+    {%- set label_attr = label_attr|merge({ style: label_attr.class|default(label_class|default(' -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: pointer;"')) }) -%}
+    <div class="ml-2 text-xl font-semibold" >{{- parent() -}}</div>
+    
+{%- endblock form_label -%}
+
+{%- block form_help -%}
+    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 text-black ')) }) -%}
+    {{- parent() -}}
+{%- endblock form_help -%}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <ul>
+            {%- for error in errors -%}
+                <li class="{{ error_item_class|default('text-white w-fit bg-delete border-delete-border border-2 rounded-md py-1 px-4 mt-2') }}">! {{ error.message }} !</li>
+            {%- endfor -%}
+        </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+
+{%- block choice_widget_expanded -%}
+    {%- set attr = attr|merge({ class: attr.class|default('mt-2 flex flex-wrap justify-between scroll-hidden-front h-52') }) -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            <div class="flex flex-wrap">
+                {{- form_widget(child) -}}
+                {{- form_label(child, null, { translation_domain: choice_translation_domain }) -}}
+            </div>
+        {% endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+{%- block checkbox_row -%}
+    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('mb-6')) }) -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_errors(form) -}}
+        <div class="inline-flex items-center">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_label(form) -}}
+        </div>
+        {{- form_help(form) -}}
+    </div>
+{%- endblock checkbox_row -%}
+
+{%- block checkbox_widget -%}
+    {%- set widget_class = widget_class|default('mx-2 ') -%}
+    <div style="margin-top: 5px;">{{- parent() -}}</div>
+        
+{%- endblock checkbox_widget -%} 
+
+{%- block radio_widget -%}
+    {%- set widget_class = widget_class|default('mr-2') -%}
+    {{- parent() -}}
+{%- endblock radio_widget -%}
+
+{% block button_row -%}
+    <div class="flex w-full mt-6 justify-end">
+        <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' form-group bg-white w-fit hover:bg-brownAccent-dark rounded-md py-1 px-4  text-center')|trim})} %}{{ block('attributes') }}{% endwith %}>
+            {{- form_widget(form) -}}
+        </div>
+    </div>
+{%- endblock button_row %}
