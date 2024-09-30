@@ -49,9 +49,9 @@
             {% endif %}  
             {% if app.user %}
                 {% if app.request.attributes.get('_route') in ['app_profil_index']  %} 
-                    <a class="flex border-b-8 border-white  w-full h-full items-center justify-around" href="{{ path('app_profil_index') }}">Profil</a> 
+                    <a class="flex border-b-8 border-white  w-full h-full items-center justify-around" href="{{ path('app_profil_index') }}">Profile</a> 
                 {% else %}
-                    <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_profil_index') }}">Profil</a>
+                    <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_profil_index') }}">Profile</a>
                 {% endif %} 
             {% else %}
                 <a class="flex hover:bg-[#E7C3C3] hover:text-black w-full h-full items-center justify-around" href="{{ path('app_login') }}">Login</a>
