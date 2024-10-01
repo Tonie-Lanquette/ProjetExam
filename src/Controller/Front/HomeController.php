@@ -15,8 +15,7 @@ class HomeController extends AbstractController
     public function index(BuildRepository $buildRepository, ArticleRepository $articleRepository): Response
     {
         // get 5 last created builds
-        $builds = $buildRepository->findAll();
-        $builds = $buildRepository->findBy(array(), array('created' => 'DESC'), 5);
+        $builds = $buildRepository->findLatestPublicBuilds(5);
 
         // get 5 last created article
         $articles = $articleRepository->findAll();

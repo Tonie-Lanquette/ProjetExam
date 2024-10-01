@@ -18,7 +18,7 @@ class ChangePasswordType extends AbstractType
             ->add('newPassword', PasswordType::class, [
                 'label' => 'New Password :',
             ])
-            ->add('confirmpassword', PasswordType::class, [
+            ->add('confirmationPassword', PasswordType::class, [
                 'label' => 'Confirm Password :',
             ]);
     }

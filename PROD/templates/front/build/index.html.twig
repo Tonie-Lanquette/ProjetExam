@@ -3,18 +3,18 @@
 {% block title %}All builds{% endblock %}
 
 {% block body %}
-    <h1 class="text-6xl my-28">All builds</h1>
+    <h1 class="text-6xl my-28 text-[#202020] dark:text-[#F1F1F1] font-bold">All builds</h1>
 
-    <p class="text-2xl mb-20 mx-20 text-center">Contribute to our community by sharing your knowledge and theorizing about the best (or worst) possible builds.</p>
+    <p class="text-2xl mb-20 mx-20 text-center text-[#202020] dark:text-[#F1F1F1]">Contribute to our community by sharing your knowledge and theorizing about the best (or worst) possible builds.</p>
 
     <div class="flex flex-col items-center w-full font-bold text-center px-40 mb-20">
         <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] py-2 px-3 rounded-xl mb-4 w-full">Create New Build</a>
     </div>
 
-    <div class="flex flex-col w-full px-20 space-y-20 justify-center drop-shadow-lg mb-40">
+    <div class="flex flex-col w-full px-20 space-y-20 justify-center drop-shadow-lg mb-40 text-[#202020] dark:text-[#F1F1F1]">
         {% for build in builds %}
         <a href="{{ path('app_build_front_details' , {'title': build.title}) }}">
-            <div class="flex mx-16 text-center bg-[#494A56] rounded-md h-48">
+            <div class="flex mx-16 text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md h-48">
 
                 {# image #}
                 <img src="{{ build.champion.squarePortrait }}" alt="{{ build.champion.name }}" class="self-left rounded-tl-md rounded-bl-md">
@@ -36,7 +36,7 @@
                 </div>
 
                 {# like/dislike #}
-                <div class="border-l-2 border-[#3B3C44] ml-auto h-full flex items-center justify-center px-4">
+                <div class="border-l-2 border-[#f1f1ff1] dark:border-[#3B3C44] ml-auto h-full flex items-center justify-center px-4">
                     <p>like</p>
                 </div>
             </div></a>        

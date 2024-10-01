@@ -9,15 +9,15 @@
                 {{ message }}
             </div>
         {% endfor %}
-        <div class="text-center w-1/2 flex flex-col items-center">  
+        <div class="text-center w-1/2 flex flex-col items-center text-[#202020] dark:text-[#F1F1F1]">  
             <h1 class="text-6xl my-20">{{user.username}}</h1>
             
-            <div class="mb-6 w-3/4 flex flex-col justify-center">
+            <div class="mb-6 w-3/4 flex flex-col justify-center text-[#202020] dark:text-[#F1F1F1]">
                 <p class="text-left">Your email :</p> 
                 <input type="text" class="text-[#202020] pl-2 mt-2 w-full rounded-md border-2 border-[#65C986]" value="{{ user.email }}" >
             </div>
         
-            <div class="mb-6 w-3/4 flex flex-col justify-center">
+            <div class="mb-6 w-3/4 flex flex-col justify-center text-[#202020] dark:text-[#F1F1F1]">
                 <p class="text-left">Your password : </p>
                 <input type="password" class="text-[#202020] pl-2 my-2 w-full rounded-md border-2 border-[#65C986]" value="********" readonly>
                 <a href="{{ path('app_change_password') }}"><p class="text-right underline">Change password</p></a>
@@ -25,6 +25,42 @@
              
             <a class="bg-[#65C986] py-2 px-4 rounded-md text-[#202020] font-bold mb-20" href="{{ path('app_logout') }}">Logout</a> 
         </div>
+
+        <h1 class="text-6xl my-28 text-[#202020] dark:text-[#F1F1F1]">Your builds</h1>
+
+    <div class="flex flex-col w-full px-20 space-y-20 justify-center drop-shadow-lg mb-40 text-[#202020] dark:text-[#F1F1F1]">
+        {% for build in builds %}
+        <a href="{{ path('app_build_front_details' , {'title': build.title}) }}">
+            <div class="flex mx-16 text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md h-48">
+
+                {# image #}
+                <img src="{{ build.champion.squarePortrait }}" alt="{{ build.champion.name }}" class="self-left rounded-tl-md rounded-bl-md">
+
+                {# title + object #}
+                <div class="h-full flex flex-col justify-around w-full pb-4">
+                    <div class="flex px-6 w-full justify-between">
+                        <p class="capitalize font-bold text-2xl">{{build.title}}</p>
+                        <p>Creation : {{build.created|date("d/m/Y")}}</p>
+                    </div>
+                    
+                    <div class="flex w-full scroll-x-hidden px-5 space-x-6">
+                    {% for slot in build.slots %}              
+                        {% for item in slot.item %}
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full">
+                        {% endfor %}
+                    {% endfor %}
+                    </div>
+                </div>
+
+                {# like/dislike #}
+                <div class="border-l-2 border-[#f1f1ff1] dark:border-[#3B3C44] ml-auto h-full flex items-center justify-center px-4">
+                    <p>like</p>
+                </div>
+            </div></a>        
+        {% else %}
+            <p>It seems that an error occurred while loading this page. Please excuse us for the inconvenience caused.</p>
+        {% endfor %}
+    </div>
     {% else %}
         <script>
         window.location.href = "{{ path('app_login') }}";

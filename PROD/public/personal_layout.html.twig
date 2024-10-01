@@ -2,12 +2,11 @@
 
 {%- block form_row -%}
     {%- set row_attr = row_attr|merge({ class: attr.class|default(row_class|default('mt-16')) }) -%}
-    {{- parent() -}}
+    {{- parent() -}} 
 {%- endblock form_row -%}
 
 {%- block widget_attributes -%}
-    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-4 py-2 px-4 w-full text-black bg-white rounded-lg')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-grey-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-delete-border
-    border-2')) }) -%}
+    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-4 py-2 px-4 w-full text-black bg-gray-200 dark:bg-white  rounded-lg')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-grey-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-delete-border border-2')) }) -%}
     {%- if form.vars.block_prefixes|last == 'textarea' -%}
         {%- set attr = attr|merge({ style: '' }) -%}
     {%- endif -%}
@@ -29,7 +28,7 @@
     {%- if errors|length > 0 -%}
         <ul>
             {%- for error in errors -%}
-                <li class="{{ error_item_class|default('text-white w-fit bg-delete border-delete-border border-2 rounded-md py-1 px-4 mt-2') }}">! {{ error.message }} !</li>
+                <li class="{{ error_item_class|default('bg-red-500/50 text-[#F1F1F1]-700 border-2 border-red-500 rounded-md w-fit text-center font-bold p-2 mt-2') }}">{{ error.message }}</li>
             {%- endfor -%}
         </ul>
     {%- endif -%}
@@ -55,12 +54,12 @@
         {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
     {%- endif -%}
     <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
-        {{- form_errors(form) -}}
         <div class="inline-flex items-center">
             {{- form_widget(form, widget_attr) -}}
             {{- form_label(form) -}}
         </div>
         {{- form_help(form) -}}
+        {{- form_errors(form) -}}  
     </div>
 {%- endblock checkbox_row -%}
 
@@ -73,6 +72,7 @@
 {%- block radio_widget -%}
     {%- set widget_class = widget_class|default('mr-2') -%}
     {{- parent() -}}
+    {{- form_errors(form) -}}  
 {%- endblock radio_widget -%}
 
 {% block button_row -%}

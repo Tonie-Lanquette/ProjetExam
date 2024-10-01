@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Build;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +17,32 @@ class BuildRepository extends ServiceEntityRepository
         parent::__construct($registry, Build::class);
     }
 
-    //    /**
-    //     * @return Build[] Returns an array of Build objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('b')
-    //            ->andWhere('b.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('b.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findPublicBuilds()
+    {  
+        return $this->createQueryBuilder('build')
+            ->where('build.visibility = :visibility')
+            ->setParameter('visibility', false)
+            ->getQuery()
+            ->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Build
-    //    {
-    //        return $this->createQueryBuilder('b')
-    //            ->andWhere('b.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findBuildsByUser(User $user)
+    {
+        return $this->createQueryBuilder('build')
+            ->where('build.creator = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findLatestPublicBuilds(int $limit = 5)
+    {
+        return $this->createQueryBuilder('build')
+            ->where('build.visibility = :visibility')
+            ->setParameter('visibility', false)
+            ->orderBy('build.created', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

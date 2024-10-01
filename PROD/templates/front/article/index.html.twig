@@ -3,12 +3,12 @@
 {% block title %}All Article{% endblock %}
 
 {% block body %}
-    <h1 class="text-6xl my-28">All Articles</h1>
+    <h1 class="text-6xl my-28 text-[#202020] dark:text-[#F1F1F1] font-bold">All Articles</h1>
      
-    <div class="flex flex-wrap w-full space-y-20 justify-center drop-shadow-lg mb-40 ">
+    <div class="flex flex-wrap w-full space-y-20 justify-center drop-shadow-lg mb-40 text-[#202020] dark:text-[#F1F1F1]">
         {% for article in articles %}
             <a href="{{ path('app_article_front_details' , {'title': article.title}) }}">
-                <div class="flex flex-col text-center bg-[#494A56] rounded-md h-[470px] w-64 mx-20 space-y-2">
+                <div class="flex flex-col text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md h-[470px] w-64 mx-20 space-y-2">
                     <img src="{{ article.build.champion.splashArt }}" alt="{{ article.build.champion.name }}" class="rounded-tl-md rounded-tr-md w-full">
                     <div class="px-4 space-y-4 h-full ">
                         <p class="capitalize mt-4 text-2xl font-bold max-h-[64px] line-clamp-2 overflow-hidden text-ellipsis">{{ article.title }}</p>
@@ -19,7 +19,7 @@
                         </p>
                         <p class="text-sm introduction line-clamp-6 overflow-hidden text-ellipsis">{{ article.introduction }}</p>
                     </div>
-                    <div class="flex border-t-2 border-[#3B3C44] mt-auto py-2 px-4 text-xs justify-between">
+                    <div class="flex border-t-2 order-[#f1f1ff1] dark:border-[#3B3C44] mt-auto py-2 px-4 text-xs justify-between">
                         <p class="text-start">{{article.user.created|date("d/m/Y")}}</p>
                         <p class="text-end">By : {{article.user.username}}</p>
                     </div>

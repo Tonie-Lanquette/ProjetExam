@@ -25,13 +25,19 @@ class RegistrationController extends AbstractController
 
             $password = $form->get('plainPassword')->getData();
             $confirmationPassword = $form->get('confirmationPassword')->getData();
+
+            if (empty($password) || empty($confirmationPassword)) {
+                $this->addFlash('error', 'Password and confirmation password cannot be empty');
+                return $this->redirectToRoute('app_register');
+            }
+            
             if ($password !== $confirmationPassword) {
                 $this->addFlash('error', 'Password and confirmation password do not match');
                 return $this->redirectToRoute('app_register');
             }
-            $plainPassword = $form->get('plainPassword')->getData();
             
-            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword))
+            
+            $user->setPassword($userPasswordHasher->hashPassword($user, $password))
             ->setRoles(['ROLE_USER'])
             ->setGdpr(new \DateTimeImmutable())
             ->setCreated(new \DateTimeImmutable())

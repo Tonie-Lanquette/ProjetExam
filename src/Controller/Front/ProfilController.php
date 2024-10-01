@@ -3,24 +3,29 @@
 namespace App\Controller\Front;
 
 use App\Form\ChangePasswordType;
+use App\Repository\BuildRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[Route('/profil')]
 class ProfilController extends AbstractController
 {
     #[Route(name: 'app_profil_index')]
-    public function index(): Response
+    public function index(BuildRepository $buildRepository): Response
     {
 
         $user = $this->getUser();
 
+        $builds = $buildRepository->findBuildsByUser($user);
+
         return $this->render('front/profil/index.html.twig', [
             'user' => $user,
+            'builds' => $builds,
         ]);
     }
 
@@ -28,6 +33,11 @@ class ProfilController extends AbstractController
     public function changePassword(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
+
+        if (!$user instanceof PasswordAuthenticatedUserInterface) {
+            $this->addFlash('error', 'Vous devez être connecté pour changer votre mot de passe.');
+            return $this->redirectToRoute('app_login');  
+        }
 
         $form = $this->createForm(ChangePasswordType::class);
         $form->handleRequest($request);
@@ -37,14 +47,14 @@ class ProfilController extends AbstractController
             $data = $form->getData();
             $currentPassword = $data['currentPassword'];
             $newPassword = $data['newPassword'];
-            $confirmPassword = $data['confirmPassword'];
+            $confirmationPassword = $data['confirmationPassword'];
 
             if (!$userPasswordHasher->isPasswordValid($user, $currentPassword)) {
                 $this->addFlash('error', 'Current password is incorrect.');
                 return $this->redirectToRoute('app_change_password');
             }
 
-            if ($newPassword !== $confirmPassword) {
+            if ($newPassword !== $confirmationPassword) {
                 $this->addFlash('error', 'New password and confirmation do not match.');
                 return $this->redirectToRoute('app_change_password');
             }
