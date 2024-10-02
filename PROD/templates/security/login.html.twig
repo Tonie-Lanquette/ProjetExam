@@ -28,15 +28,22 @@
             
 
             <input type="hidden" name="_csrf_token"
-                value="{{ csrf_token('authenticate') }}"
-            >
+                value="{{ csrf_token('authenticate') }}">
 
             <a href="{{ path('app_register') }}" class="underline mt-[-30px] mb-10">Don't have an account yet ?</a>
-{% if error %}
+
+            {% if error %}
                 <div class="text-red-950 px-2 py-1 bg-red-500/50 border-2 border-red-500 rounded-md w-fit mx-auto font-bold text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-            <button class="self-end bg-[#65C986] w-fit text-[#202020] font-bold py-2 px-4 rounded-md hover:bg-[#58b678]" type="submit">Log in
-            </button>
+
+            <div class="flex justify-between mt-10">
+                <a class="font-bold text-[#202020] bg-[#65C986] rounded-md py-2 px-4 mt-2" href="{{ path('app_home') }}">
+                    Home
+                </a>
+                <button class="self-end bg-[#65C986] w-fit text-[#202020] font-bold py-2 px-4 rounded-md hover:bg-[#58b678]" type="submit">
+                    Log in
+                </button>
+            </div>
         </form>
     </div>
 </div>

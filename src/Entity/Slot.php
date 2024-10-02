@@ -6,6 +6,7 @@ use App\Repository\SlotRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SlotRepository::class)]
 class Slot
@@ -19,6 +20,7 @@ class Slot
     private ?string $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'slots')]
+    #[Assert\Type(type: 'bool', message: 'Visibility must be a boolean value.')]
     private ?Build $build = null;
 
     /**

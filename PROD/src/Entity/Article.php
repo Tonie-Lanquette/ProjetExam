@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[UniqueEntity(fields: ['title'], message: 'An article with this title already exists')]
 class Article
 {
     #[ORM\Id]
@@ -15,21 +18,44 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Title cannot be blank")]
+    #[Assert\Length( min: 5, max: 255, minMessage: "Title must be at least {{ limit }} characters long", maxMessage: "Title cannot be longer than {{ limit }} characters")]
+    #[Assert\Regex(pattern: '/^[\w\s]+$/', message: 'Title can only contain letters, numbers, and spaces')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Title cannot be blank")]
+    #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
+    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $introduction = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Title cannot be blank")]
+    #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
+    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $starter_explication = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Title cannot be blank")]
+    #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
+    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $core_explication = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Title cannot be blank")]
+    #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
+    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $optional_explication = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Title cannot be blank")]
+    #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
+    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $conclusion = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]

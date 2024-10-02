@@ -4,23 +4,25 @@
 
 {% block body %}
     {% if app.user %}
-    {% for message in app.flashes('success') %}
-            <div class="text-green-700 p-2 bg-green-200 rounded-md w-fit ml-[15%]">
+    <div class="fixed z-10 w-full px-10 mt-24 flex flex-col items-end space-y-4">
+        {% for message in app.flashes('success') %}
+            <div class="bg-green-500/50 text-[#F1F1F1]-700 border-2 border-green-500 rounded-md w-fit text-center font-bold p-2">
                 {{ message }}
-            </div>
+        </div>
         {% endfor %}
+    </div>
         <div class="text-center w-1/2 flex flex-col items-center text-[#202020] dark:text-[#F1F1F1]">  
-            <h1 class="text-6xl my-20">{{user.username}}</h1>
+            <h1 class="text-6xl my-20 capitalize">{{user.username}}</h1>
             
             <div class="mb-6 w-3/4 flex flex-col justify-center text-[#202020] dark:text-[#F1F1F1]">
                 <p class="text-left">Your email :</p> 
-                <input type="text" class="text-[#202020] pl-2 mt-2 w-full rounded-md border-2 border-[#65C986]" value="{{ user.email }}" >
+                <div class="bg-white rounded-md border-2 border-[#65C986] text-[#202020] text-left pl-4 py-1 my-2" >{{ user.email }}</div>
             </div>
         
             <div class="mb-6 w-3/4 flex flex-col justify-center text-[#202020] dark:text-[#F1F1F1]">
                 <p class="text-left">Your password : </p>
-                <input type="password" class="text-[#202020] pl-2 my-2 w-full rounded-md border-2 border-[#65C986]" value="********" readonly>
-                <a href="{{ path('app_change_password') }}"><p class="text-right underline">Change password</p></a>
+                <div class="bg-white rounded-md border-2 border-[#65C986] text-[#202020] text-left pl-4 py-1 my-2" >••••••••••</div>
+                <a href="{{ path('app_change_password') }}"><p class="text-right underline hover:text-[#65C986]">Change password</p></a>
             </div>
              
             <a class="bg-[#65C986] py-2 px-4 rounded-md text-[#202020] font-bold mb-20" href="{{ path('app_logout') }}">Logout</a> 

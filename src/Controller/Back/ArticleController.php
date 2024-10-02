@@ -67,8 +67,6 @@ final class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $article->setCreated(new \DateTimeImmutable());
             
             $entityManager->flush();
 

@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: BuildRepository::class)]
 class Build
@@ -17,9 +19,14 @@ class Build
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Title cannot be blank.")]
+    #[Assert\Length( min: 5, max: 255, minMessage: "Title cannot be shorter than {{ limit }} characters.", maxMessage: "Title cannot be longer than {{ limit }} characters."
+    )]
+    #[Assert\Regex(pattern: '/^[\w\s]+$/', message: 'Title can only contain letters, numbers, and spaces')]
     private ?string $title = null;
 
     #[ORM\Column]
+    #[Assert\Type(type: 'bool', message: 'Visibility must be a boolean value.')]
     private ?bool $visibility = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

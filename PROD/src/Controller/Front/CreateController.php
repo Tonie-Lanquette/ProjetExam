@@ -44,7 +44,13 @@ class CreateController extends AbstractController
             $entityManager->persist($build);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_build_front_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Your build has been successfully created');
+
+            if ($build->isVisibility()) {
+                return $this->redirectToRoute('app_profil_index');
+            } else {
+                return $this->redirectToRoute('app_build_front_index', [], Response::HTTP_SEE_OTHER); 
+            }
         }
 
         return $this->render('front/create/build.html.twig', [
@@ -71,6 +77,8 @@ class CreateController extends AbstractController
 
             $entityManager->persist($article);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Your article has been successfully created');
 
             return $this->redirectToRoute('app_article_front_index', [], Response::HTTP_SEE_OTHER);
         }
