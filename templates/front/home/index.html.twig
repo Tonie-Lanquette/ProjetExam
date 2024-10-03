@@ -5,8 +5,10 @@
 {% block body %}
 
 
-
-    <img src="/home_2.jpg" alt="home page image">
+<div class="w-full h-screen">
+    <img src="/home_2.jpg" alt="home page image" class="object-cover w-full h-full">
+</div>
+    
 
     <div class="fixed z-10 w-full px-10 mt-24 flex flex-col items-end space-y-4">
         {% for message in app.flashes('success') %}

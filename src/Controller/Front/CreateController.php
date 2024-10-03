@@ -47,7 +47,7 @@ class CreateController extends AbstractController
             $this->addFlash('success', 'Your build has been successfully created');
 
             if ($build->isVisibility()) {
-                return $this->redirectToRoute('app_profil_index');
+                return $this->redirectToRoute('app_profil_index', [], Response::HTTP_SEE_OTHER);
             } else {
                 return $this->redirectToRoute('app_build_front_index', [], Response::HTTP_SEE_OTHER); 
             }

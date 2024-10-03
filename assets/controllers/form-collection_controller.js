@@ -24,7 +24,9 @@ export default class extends Controller {
             this.element.dataset['prototype'].replaceAll('__name__', this.index)
         ).firstElementChild;
         
-       
+        const falseLabel = document.createElement('p');
+        falseLabel.classList.add('font-semibold', 'ml-2', 'text-xl');
+        
         this.index++;
         e.currentTarget.insertAdjacentElement('beforebegin', element);
         
@@ -32,18 +34,23 @@ export default class extends Controller {
         const categoryInput = element.querySelector('input[name$="[category]"]');
         if (categoryInput) {
             switch (this.index - 1) {
-                case 0:
-                    categoryInput.value = 'starter_items';
-                    break;
-                case 1:
-                    categoryInput.value = 'core_items';
-                    break;
-                case 2:
-                    categoryInput.value = 'optional_items';
-                    break;
-                default:
-                    break;
+            case 0:
+                falseLabel.innerText = 'Starter items :';
+                categoryInput.value = 'starter_items';
+                break;
+            case 1:
+                falseLabel.innerText = 'Core items :';
+                categoryInput.value = 'core_items';
+                break;
+            case 2:
+                falseLabel.innerText = 'Optional items :';
+                categoryInput.value = 'optional_items';
+                break;
+            default:
+                break;
             }
         }
+
+         element.insertAdjacentElement('beforebegin', falseLabel);
     };
 }
