@@ -22,7 +22,7 @@ class SlotType extends AbstractType
                 'class' => Item::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'label' => '',
+                'label' => false,
                 'expanded' => true,
             ])
         ;

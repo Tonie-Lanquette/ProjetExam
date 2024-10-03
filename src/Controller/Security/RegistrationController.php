@@ -45,11 +45,11 @@ class RegistrationController extends AbstractController
             }
 
             // Verifier la presence d'espace et mettre en minucsule
-            $rawUsername = trim($form->get('username')->getData());
-            $normalizedUsername = strtolower($rawUsername);
+            $trimUsername = trim($form->get('username')->getData());
+            $lowerUsername = strtolower($trimUsername);
 
             // Comparer tout en minuscule pour éviter les doublons
-            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['username' => $normalizedUsername]);
+            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['username' => $lowerUsername]);
             if ($existingUser) {
                 $this->addFlash('error', 'This username is already taken');
                 return $this->redirectToRoute('app_register');
@@ -57,7 +57,7 @@ class RegistrationController extends AbstractController
 
              // Enregistrement de l'utilisateur
             $user->setPassword($userPasswordHasher->hashPassword($user, $password))
-            ->setUsername(strtolower(trim($form->get('username')->getData())))
+            ->setUsername($form->get('username')->getData())
             ->setRoles(['ROLE_USER'])
             ->setGdpr(new \DateTimeImmutable())
             ->setCreated(new \DateTimeImmutable())

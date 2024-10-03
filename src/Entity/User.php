@@ -30,7 +30,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email(message: "The email '{{ value }}' is not a valid email address.")]
     private ?string $email = null;
 
-    /**
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "This field cannot be blank")]
+    #[Assert\Length(min: 3,  max: 30, minMessage: "Username cannot be shorter than {{ limit }} characters", maxMessage: "Username cannot be longer than {{ limit }} characters")]
+    #[Assert\Regex(pattern:"/^[a-zA-Z0-9_]+$/", message:"Username can only contain letters, numbers, and underscores, and cannot contain spaces." )]
+    private ?string $username = null;
+ /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
@@ -41,12 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "This field cannot be blank")]
-    #[Assert\Length(min: 3,  max: 30, minMessage: "Username cannot be shorter than {{ limit }} characters", maxMessage: "Username cannot be longer than {{ limit }} characters")]
-    #[Assert\Regex(pattern:"/^[a-zA-Z0-9_]+$/", message:"Username can only contain letters, numbers, and underscores, and cannot contain spaces." )]
-    private ?string $username = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $gdpr = null;
