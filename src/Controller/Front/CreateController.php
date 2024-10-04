@@ -68,6 +68,7 @@ class CreateController extends AbstractController
         $article = new Article();
 
         $article->setUser($creator);
+        
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
