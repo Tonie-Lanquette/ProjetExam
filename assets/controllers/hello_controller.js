@@ -11,6 +11,9 @@ import { Controller } from '@hotwired/stimulus';
  */
 export default class extends Controller {
     connect() {
-        // this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
+            document.getElementById('menu-burger').addEventListener('click', function() {
+            let mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
     }
 }

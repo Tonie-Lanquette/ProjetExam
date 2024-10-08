@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     connect() {
+        
         this.index = this.element.childElementCount;
         const btn = document.createElement('button');
         btn.setAttribute('class', 'bg-[#65C986] py-1 px-2 rounded-md mt-8 addButton');
