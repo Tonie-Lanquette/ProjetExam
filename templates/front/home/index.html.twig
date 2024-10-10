@@ -30,10 +30,12 @@
 
         <h2 class="w-2/3 text-3xl md:text-5xl mb-10 md:mb-20 mt-20 md:mt-40 font-bold">Lastest builds :</h2>
 
-        <div class="flex flex-col px-4 md:px-20 space-y-10 md:space-y-20 justify-center drop-shadow-lg md:mb-40 mb-20">
+        <div class="flex flex-wrap w-full justify-center items-center px-10 lg:px-20 space-y-10 lg:space-y-20 drop-shadow-lg lg:mb-40 mb-20">
         {% for build in builds %}
-            <a href="{{ path('app_build_front_details' , {'title': build.title}) }}">
-                <div class="hidden md:flex mx-16 text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md h-48">
+
+        {# COMPUTER LG:1024 #}
+            <a class="lg:w-full" href="{{ path('app_build_front_details' , {'title': build.title}) }}">
+                <div class="hidden lg:flex w-full text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md h-48">
 
                     {# image #}
                     <img src="{{ build.champion.squarePortrait }}" alt="{{ build.champion.name }}" class="self-left rounded-tl-md rounded-bl-md">
@@ -45,7 +47,7 @@
                             <p>Creation : {{build.created|date("d/m/Y")}}</p>
                         </div>
                         
-                        <div class="flex w-full scroll-x-hidden px-5 space-x-6">
+                        <div class="flex items-center w-full scroll-x-hidden px-5 space-x-6">
                         {% for slot in build.slots %}              
                             {% for item in slot.item %}
                                 <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full">
@@ -59,9 +61,11 @@
                         <p>like</p>
                     </div>
                 </div>
-            </a>        
+            </a> 
+
+        {# PHONE  #}
             <a href="{{ path('app_build_front_details' , {'title': build.title}) }} ">
-                <div class="md:hidden flex flex-col items-center mx-4 text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md w-[256px]">
+                <div class="lg:hidden flex flex-col items-center mx-4 md:mx-10 text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md w-[256px] h-[410px]">
 
                     {# image #}
                     <img src="{{ build.champion.splashArt }}" alt="{{ build.champion.name }}" class="rounded-t-md w-full h-auto object-cover">
@@ -83,7 +87,7 @@
                     </div>
 
                     {# like/dislike #}
-                    <div class="border-t-2 border-[#f1f1ff1] dark:border-[#3B3C44] h-14 flex items-center justify-center w-full">
+                    <div class="border-t-2 border-[#f1f1ff1] dark:border-[#3B3C44] min-h-14 flex items-center justify-center w-full">
                         <p class="text-sm">like</p>
                     </div>
                 </div>
@@ -96,28 +100,28 @@
         <h2 class="w-2/3 text-3xl md:text-5xl my-20 font-bold">Lastest articles :</h2>
 
         <div class="flex w-5/6 md:px-20 drop-shadow-lg dm:mb-40 mb-12">
-        <div class="flex w-full scroll-x-hidden space-x-4 md:space-x-10">
-            {% for article in articles %}
-                <a href="{{ path('app_article_front_details' , {'title': article.title}) }}">
-                    <div class="flex flex-col text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md h-[470px] w-[256px] space-y-2 flex-shrink-0">
-                        <img src="{{ article.build.champion.splashArt }}" alt="{{ article.build.champion.name }}" class="rounded-tl-md rounded-tr-md w-full">
-                        <div class="px-4 space-y-4 h-full ">
-                            <p class="capitalize mt-4 text-2xl font-bold max-h-[64px] line-clamp-2 overflow-hidden text-ellipsis">{{ article.title }}</p>
-                            <p>Build : 
-                                <a class="hover:underline hover:text-[#65C986] capitalize italic" href="{{ path('app_build_front_details' , {'title': article.build.title}) }}">
-                                    {{ article.build.title }}
-                                </a>
-                            </p>
-                            <p class="text-sm introduction line-clamp-6 overflow-hidden text-ellipsis">{{ article.introduction }}</p>
+            <div class="flex w-full scroll-x-hidden space-x-4 md:space-x-10">
+                {% for article in articles %}
+                    <a href="{{ path('app_article_front_details' , {'title': article.title}) }}">
+                        <div class="flex flex-col text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md h-[470px] w-[256px] space-y-2 flex-shrink-0">
+                            <img src="{{ article.build.champion.splashArt }}" alt="{{ article.build.champion.name }}" class="rounded-tl-md rounded-tr-md w-full">
+                            <div class="px-4 space-y-4 h-full ">
+                                <p class="capitalize mt-4 text-2xl font-bold max-h-[64px] line-clamp-2 overflow-hidden text-ellipsis">{{ article.title }}</p>
+                                <p>Build : 
+                                    <a class="hover:underline hover:text-[#65C986] capitalize italic" href="{{ path('app_build_front_details' , {'title': article.build.title}) }}">
+                                        {{ article.build.title }}
+                                    </a>
+                                </p>
+                                <p class="text-sm introduction line-clamp-6 overflow-hidden text-ellipsis">{{ article.introduction }}</p>
+                            </div>
+                            <div class="flex border-t-2 order-[#f1f1ff1] dark:border-[#3B3C44] mt-auto py-2 px-4 text-xs justify-between">
+                                <p class="text-start">{{article.created|date("d/m/Y")}}</p>
+                                <p class="text-end">By : {{article.user.username}}</p>
+                            </div>
                         </div>
-                        <div class="flex border-t-2 order-[#f1f1ff1] dark:border-[#3B3C44] mt-auto py-2 px-4 text-xs justify-between">
-                            <p class="text-start">{{article.created|date("d/m/Y")}}</p>
-                            <p class="text-end">By : {{article.user.username}}</p>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %} 
-        </div>
+                    </a>
+                {% endfor %} 
+            </div>
         </div>
     </div>
 

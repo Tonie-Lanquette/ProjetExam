@@ -20,32 +20,32 @@
 
     {% if app.request.attributes.get('_route') in ['app_login','app_register'] %}
     {% else %}
-        <header class="w-full sticky top-0 left-0 z-50">
+        <header class="w-full sticky top-0 left-0 z-30">
             <nav class="sticky top-0 left-0 w-full h-20 font-bold flex items-center justify-center bg-[#00424A] text-[#F1F1F1] px-10">
-                <a class="flex w-full h-full items-center text-2xl" href="{{ path('app_home') }}">LEGENDARIFT</a>
+                <a class="flex w-full h-full items-center text-2xl z-40" href="{{ path('app_home') }}">LEGENDARIFT</a>
 
-                <div data-controller="hello" id="menu-burger" class="md:hidden">
+                <div data-controller="hello" id="menu-burger" class="md:hidden z-40">
                     <button id="menu-toggle" class="text-white focus:outline-none">
                         <i class="fa-solid fa-bars fa-2xl" style="color: #f1f1f1;"></i>
                     </button>
                 </div>
 
-                <div id="mobile-menu" class="absolute top-20 left-0 w-full bg-[#00424A]/90 hidden">
-                    <div class="flex flex-col items-center justify-around h-screen text-6xl py-48">
+                <div id="mobile-menu" class="absolute top-1 left-0 w-full bg-[#00424A]/90 hidden">
+                    <div class="flex flex-col items-center justify-around h-screen text-3xl py-48 font-semibold">
 
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a class="flex w-full items-center hover:bg-[#E7C3C3] justify-center" href="{{ path('app_champion_index') }}">Admin</a>
+                            <a class="flex w-full items-center justify-center" href="{{ path('app_champion_index') }}">Admin</a>
                         {% endif %}
 
-                        <a class="flex w-full items-center hover:bg-[#E7C3C3] justify-center" href="{{ path('app_create_index') }}">Create</a>
-                        <a class="flex w-full items-center hover:bg-[#E7C3C3] justify-center" href="{{ path('app_build_front_index') }}">Builds</a>
-                        <a class="flex w-full items-center hover:bg-[#E7C3C3] justify-center" href="{{ path('app_champion_front_index') }}">Champions</a>
-                        <a class="flex w-full items-center hover:bg-[#E7C3C3] justify-center" href="{{ path('app_article_front_index') }}">Articles</a>
+                        <a class="flex w-full items-center justify-center" href="{{ path('app_create_index') }}">Create</a>
+                        <a class="flex w-full items-center justify-center" href="{{ path('app_build_front_index') }}">Builds</a>
+                        <a class="flex w-full items-center justify-center" href="{{ path('app_champion_front_index') }}">Champions</a>
+                        <a class="flex w-full items-center justify-center" href="{{ path('app_article_front_index') }}">Articles</a>
                         
                         {% if app.user %}
-                            <a class="flex w-full items-center hover:bg-[#E7C3C3] justify-center" href="{{ path('app_profil_index') }}">Profile</a>
+                            <a class="flex w-full items-center justify-center" href="{{ path('app_profil_index') }}">Profile</a>
                         {% else %}
-                            <a class="flex w-full items-center hover:bg-[#E7C3C3] justify-center" href="{{ path('app_login') }}">Login</a>
+                            <a class="flex w-full items-center justify-center" href="{{ path('app_login') }}">Login</a>
                         {% endif %}
 
                     </div>

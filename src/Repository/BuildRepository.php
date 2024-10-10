@@ -22,6 +22,7 @@ class BuildRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('build')
             ->where('build.visibility = :visibility')
             ->setParameter('visibility', false)
+            ->orderBy('build.created', 'DESC')
             ->getQuery()
             ->getResult();
     }

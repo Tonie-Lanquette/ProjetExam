@@ -3,10 +3,10 @@
 {% block title %}Champions{% endblock %}
 
 {% block body %}
-    <h1 class="text-6xl my-28">All champions</h1>
-    <div class="flex flex-wrap w-full px-20 my-20 justify-center">
+    <h1 class="text-3xl lg:text-6xl font-bold mt-14 lg:mt-28 mb-1 lg:mb-28">All champions</h1>
+    <div class="flex flex-wrap w-full px-8 lg:px-20 my-10 lg:my-20 justify-center">
         {% for champion in champions %}
-            <div class="mx-16 my-16 text-center">
+            <div class="mx-8 my-8 lg:mx-16 lg:my-16 text-center">
                 <a href="{{ path('app_champion_front_details', {'name': champion.name}) }}">
                     <img src="{{ champion.squarePortrait }}" alt="champion's portrait" class="mb-2 size-40">
                     <p>{{ champion.name }}</p>

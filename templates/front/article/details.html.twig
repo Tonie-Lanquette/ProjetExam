@@ -3,36 +3,39 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block body %}
-<div  class="flex flex-col w-full items-center justify-center">
-    <div class="w-full mb-20 relative ">
+<div class="flex flex-col w-full items-center justify-center">
+    <div class="w-full mb-32 md:mb-20 relative ">
         <img src="{{ article.build.champion.splashArt }}" alt="{{ article.build.champion.name}}'s splash art" class="w-full z-0">
         <div class="absolute inset-x-0 bottom-0 h-2/4 bg-gradient-to-b from-transparent dark:to-[#3B3C44] to-[#F1F1F1] to-70% z-10 flex items-center"> 
-            <div class="flex flex-col items-center w-full">
-                <div class="flex w-5/6 items-end mb-10 font-semibold">
-                    <h1 class="w-1/2 text-9xl">{{ article.build.champion.name }}</h1> 
-                    <p class="w-1/2 text-5xl text-right pr-20 mb-2">Categories : {{ article.build.champion.role }}</p>
+            <div class="flex flex-col items-center w-full mt-96 md:mt-20 lg:mt-1">
+                <div class="flex flex-col lg:flex-row w-full lg:w-5/6 items-start lg:items-end mb-10 font-semibold">
+                    <h1 class="w-full lg:w-1/2 text-center lg:text-start text-5xl lg:text-9xl">{{ article.build.champion.name }}</h1> 
+                    <p class="w-full lg:w-1/2 text-center text-lg lg:text-3xl lg:text-right lg:pr-20 mb-2 mt-2">Categories : {{ article.build.champion.role }}</p>
                 </div>
-                <p class="w-5/6 text-2xl">{{ article.build.champion.description }}</p>
+                <p class="w-full text-lg lg:w-5/6 lg:text-2xl text-center lg:text-start px-4 lg:px-0">{{ article.build.champion.description }}</p>
             </div>
         </div>
     </div>
-    <div class="flex flex-col w-5/6 items-center justify-center text-center space-y-16 mb-40 text-justify text-[#202020] dark:text-[#F1F1F1]">
+    <div class="mt-80 md:mt-20 lg:mt-1 flex flex-col w-5/6 items-center justify-center space-y-16 mb-40 text-center text-justify text-[#202020] dark:text-[#F1F1F1]">
             <p class="text-7xl mb-20">{{ article.title }}</p>
-            <p class="w-5/6 text-xl indent-8">{{ article.introduction }}</p>
-            <div class="w-5/6 text-xl">
-                <p class="text-left text-2xl font-bold mb-4">Starter Items :</p>
+            <div class=" text-xl">
+                <p class="text-center lg:text-left text-2xl font-bold mb-4">Introduction :</p>
+                <p class="indent-8">{{ article.introduction }}</p>
+            </div>
+            <div class=" text-xl">
+                <p class="text-center lg:text-left text-2xl font-bold mb-4">Starter Items :</p>
                 <p class="indent-8">{{ article.starterExplication }}</p>
             </div>
-            <div class="w-5/6 text-xl">
-                <p class="text-left text-2xl font-bold mb-4">Core Items :</p>
+            <div class=" text-xl">
+                <p class="text-center lg:text-left text-2xl font-bold mb-4">Core Items :</p>
                 <p class="indent-8">{{ article.coreExplication }}</p>
             </div>
-            <div class="w-5/6 text-xl">
-                <p class="text-left text-2xl font-bold mb-4">Optional Items :</p>
+            <div class=" text-xl">
+                <p class="text-center lg:text-left text-2xl font-bold mb-4">Optional Items :</p>
                 <p class="indent-8">{{ article.optionalExplication }}</p>
             </div>
-            <div class="w-5/6 text-xl">
-                <p class="text-left text-2xl font-bold mb-4">Conclusion :</p>
+            <div class=" text-xl">
+                <p class="text-center lg:text-left text-2xl font-bold mb-4">Conclusion :</p>
                 <p class="indent-8">{{ article.conclusion }}</p>
             </div>
             

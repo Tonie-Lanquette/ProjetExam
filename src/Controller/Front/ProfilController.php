@@ -3,6 +3,7 @@
 namespace App\Controller\Front;
 
 use App\Form\ChangePasswordType;
+use App\Repository\ArticleRepository;
 use App\Repository\BuildRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,16 +17,18 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 class ProfilController extends AbstractController
 {
     #[Route(name: 'app_profil_index')]
-    public function index(BuildRepository $buildRepository): Response
+    public function index(BuildRepository $buildRepository, ArticleRepository $articleRepository): Response
     {
 
         $user = $this->getUser();
 
         $builds = $buildRepository->findBuildsByUser($user);
+        $articles = $articleRepository->findArticlesByUser($user);
 
         return $this->render('front/profil/index.html.twig', [
             'user' => $user,
             'builds' => $builds,
+            'articles' => $articles,
         ]);
     }
 

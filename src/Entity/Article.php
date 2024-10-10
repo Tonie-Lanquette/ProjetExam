@@ -26,35 +26,35 @@ class Article
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: "Title cannot be blank")]
     #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
-    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Regex(pattern: '/^[\p{L}\p{N}\s.,!?\'"’-]*$/u', message: 'This field can only contain letters, numbers, and basic punctuation.')]
     #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $introduction = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: "Title cannot be blank")]
     #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
-    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Regex(pattern: '/^[\p{L}\p{N}\s.,!?\'"’-]*$/u', message: 'This field can only contain letters, numbers, and basic punctuation.')]
     #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $starter_explication = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: "Title cannot be blank")]
     #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
-    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Regex(pattern: '/^[\p{L}\p{N}\s.,!?\'"’-]*$/u', message: 'This field can only contain letters, numbers, and basic punctuation.')]
     #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $core_explication = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: "Title cannot be blank")]
     #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
-    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Regex(pattern: '/^[\p{L}\p{N}\s.,!?\'"’-]*$/u', message: 'This field can only contain letters, numbers, and basic punctuation.')]
     #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $optional_explication = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: "Title cannot be blank")]
     #[Assert\Length(min: 5, max: 65535, minMessage: "This field must be at least {{ limit }} characters long", maxMessage: "This field cannot be longer than {{ limit }} characters")]
-    #[Assert\Regex(pattern: '/^[\w\s.,!?\'"-]*$/', message: 'This field can only contain letters, numbers, and basic punctuation.')]
+    #[Assert\Regex(pattern: '/^[\p{L}\p{N}\s.,!?\'"’-]*$/u', message: 'This field can only contain letters, numbers, and basic punctuation.')]
     #[Assert\Type(type: 'string', message: 'This field must be a string.')]
     private ?string $conclusion = null;
 

@@ -3,7 +3,7 @@
 {% block title %}All Article{% endblock %}
 
 {% block body %}
-    <h1 class="text-6xl my-28 text-[#202020] dark:text-[#F1F1F1] font-bold">All Articles</h1>
+    <h1 class="text-4xl lg:text-6xl mt-14 lg:mb-28 mt-28 text-[#202020] dark:text-[#F1F1F1] font-bold">All Articles</h1>
     <div class="fixed z-10 w-full px-10 mt-24 flex flex-col items-end space-y-4">
         {% for message in app.flashes('success') %}
             <div class="bg-green-500/50 text-[#F1F1F1]-700 border-2 border-green-500 rounded-md w-fit text-center font-bold p-2">

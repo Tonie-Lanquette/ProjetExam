@@ -3,9 +3,9 @@
 {% block title %}Create Build{% endblock %}
 
 {% block body %}
-<div class="bg-[#FFFFFF] dark:bg-[#494A56] w-3/6 my-40 py-40 rounded-md flex flex-col items-center justify-center text-[#202020] dark:text-[#F1F1F1]">
-    <h1 class="text-6xl font-bold mb-20">Build :</h1>
-    <div class="w-4/6">
+<div class="bg-[#FFFFFF] dark:bg-[#494A56] w-5/6 lg:w-3/6 my-40 lg:py-28 py-20 rounded-md flex flex-col items-center justify-center text-[#202020] dark:text-[#F1F1F1]">
+    <h1 class="text-4xl lg:text-6xl font-bold mb-20">Build :</h1>
+    <div class="w-5/6 md:w-4/6">
         {{ form_start(form) }}
             {{ form_row(form.title) }}
             {{ form_row(form.champion) }}

@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="flex flex-col justify-center items-center h-screen w-full text-[#202020] dark:text-[#F1F1F1]">
-    <div class="flex flex-col bg-white dark:bg-[#494A56] w-1/2 rounded-lg py-10 px-32">
+    <div class="flex flex-col bg-white dark:bg-[#494A56] w-5/6 lg:w-1/2 rounded-lg py-10 px-10 md:px-20 lg:px-32 my-20">
         <form method="post" class="flex flex-col">
           
 
@@ -18,12 +18,12 @@
 
         <div class="flex flex-col mb-12">
             <label for="username" class="font-bold">Email :</label>
-            <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control text-[#202020] mt-2 pl-2 rounded-md bg-gray-200 focus:ring-4 focus:ring-[#65C986]" autocomplete="email" required autofocus>
+            <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control text-[#202020] mt-2 pl-2 rounded-md bg-gray-200 focus:ring-4 focus:ring-[#65C986] py-2 px-4" autocomplete="email" required autofocus>
         </div>
 
         <div class="flex flex-col mb-12">  
             <label for="password" class="font-bold" >Password :</label>
-            <input type="password" name="_password" id="password" class="form-control text-[#202020] mt-2 pl-2 rounded-md bg-gray-200 focus:ring-4 focus:ring-[#65C986]" autocomplete="current-password text-[#202020]" required>
+            <input type="password" name="_password" id="password" class="form-control text-[#202020] mt-2 pl-2 rounded-md bg-gray-200 focus:ring-4 focus:ring-[#65C986] py-2 px-4" autocomplete="current-password text-[#202020]" required>
         </div>
             
 

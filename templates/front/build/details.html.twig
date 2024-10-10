@@ -3,51 +3,52 @@
 {% block title %}{{ build.title }}{% endblock %}
 
 {% block body %}
-    <div class="w-full mb-20 relative">
+    <div class="w-full mb-32 md:mb-20 relative">
         <img src="{{ build.champion.splashArt }}" alt="{{ build.champion.name}}'s splash art" class="w-full z-0">
         <div class="absolute inset-x-0 bottom-0 h-2/4 bg-gradient-to-b from-transparent dark:to-[#3B3C44] to-[#F1F1F1] to-70% z-10 flex items-center"> 
-            <div class="flex flex-col items-center w-full">
-                <div class="flex w-5/6 items-end mb-10 font-semibold">
-                    <h1 class="w-1/2 text-9xl">{{ build.champion.name }}</h1> 
-                    <p class="w-1/2 text-5xl text-right pr-20 mb-2">Categories : {{ build.champion.role }}</p>
+            <div class="flex flex-col items-center w-full mt-96 md:mt-20 lg:mt-1">
+                <div class="flex flex-col lg:flex-row w-full lg:w-5/6 items-start lg:items-end mb-10 font-semibold">
+                    <h1 class="w-full lg:w-1/2 text-center lg:text-start text-5xl lg:text-9xl">{{ build.champion.name }}</h1> 
+                    <p class="w-full lg:w-1/2 text-center text-lg lg:text-3xl lg:text-right lg:pr-20 mb-2 mt-2">Categories : {{ build.champion.role }}</p>
                 </div>
-                <p class="w-5/6 text-2xl">{{ build.champion.description }}</p>
+                <p class="w-full text-lg lg:w-5/6 lg:text-2xl text-center lg:text-start px-4 lg:px-0">{{ build.champion.description }}</p>
             </div>
         </div>
     </div>
-    <h1 class="capitalize text-7xl text-[#202020] dark:text-[#F1F1F1]">{{ build.title }}</h1>
+   
+    <h1 class="mt-96 md:mt-20 lg:mt-1 capitalize text-5xl lg:text-7xl text-[#202020] dark:text-[#F1F1F1]">{{ build.title }}</h1>
     <div class="space-y-20 mt-20 mb-20 w-5/6 text-[#202020] dark:text-[#F1F1F1]">
         <div>
-            <h2 class="text-3xl mb-8">Start Items :</h2> 
-            <div class="flex space-x-8 border-4 border-[#65C986] scroll-x-hidden rounded-md py-4 px-8 justify-center">
+            <h2 class="text-xl lg:text-3xl mb-8">Start Items :</h2> 
+            <div class="flex space-x-8 border-2 md:border-4 border-[#65C986] scroll-x-hidden rounded-md py-2 lg:py-4 px-8 justify-center">
                 {% for slot in build.slots %}
                     {% if slot.category == 'starter_items' %}
                         {% for item in slot.item %}
-                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24 mt-[8px]">
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 mt-[8px]">
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
         <div>           
-            <h2 class="text-3xl mb-8">Core Items :</h2>
-            <div class="flex space-x-8 border-4 border-[#65C986] scroll-x-hidden rounded-md py-4 px-8 justify-center">                
+            <h2 class="text-xl lg:text-3xl mb-8">Core Items :</h2>
+            <div class="flex space-x-8 border-2 md:border-4 border-[#65C986] scroll-x-hidden rounded-md py-2 lg:py-4 px-8 justify-center">                
                 {% for slot in build.slots %}
                     {% if slot.category == 'core_items' %}
                         {% for item in slot.item %}
-                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24 mt-[8px]">
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 mt-[8px]">
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
         <div>
-            <h2 class="text-3xl mb-8">Optional Items :</h2>
-            <div class="flex space-x-8 border-4 border-[#65C986] scroll-x-hidden rounded-md py-4 px-8 justify-center">                    
+            <h2 class="text-xl lg:text-3xl mb-8">Optional Items :</h2>
+            <div class="flex space-x-8 border-2 md:border-4 border-[#65C986] scroll-x-hidden rounded-md py-2 lg:py-4 px-8 justify-center">                    
                 {% for slot in build.slots %}
                     {% if slot.category == 'optional_items' %}
                         {% for item in slot.item %}
-                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-24 h-24 mt-[8px]">
+                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 mt-[8px]">
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
@@ -61,14 +62,14 @@
                 Explanation
         </a>
     {% endif %}
-        <div class="space-x-10">
-            <a href="{{ path('app_build_front_edit' , {'title': build.title}) }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">
+        <div class="flex flex-col lg:flex-row text-center lg:space-x-10">
+            <a href="{{ path('app_build_front_edit' , {'title': build.title}) }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full my-2">
                 Edit
             </a>
-            <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">
+            <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full my-2">
                 Make my own build
             </a>
-            <a href="{{ path('app_build_front_index') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">
+            <a href="{{ path('app_build_front_index') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full my-2">
                 Go back to all builds
             </a>
         </div>
