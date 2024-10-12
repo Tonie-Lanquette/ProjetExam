@@ -4,10 +4,10 @@
 
 {% block body %}
 
-<div class="mt-20 space-x-10">   
-    <a href="{{ path('app_profil_index') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">Back to profile</a>
-    <a href="{{ path('app_article_front_index') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">Back to articles</a>
-</div>
+    <div class="mt-20 space-x-10">   
+        <a href="{{ path('app_profil_index') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">Back to profile</a>
+        <a href="{{ path('app_article_front_index') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">Back to articles</a>
+    </div>
 
     <div class="bg-[#FFFFFF] dark:bg-[#494A56] w-5/6 lg:w-3/6 mb-40 mt-20 lg:py-28 py-20 rounded-md flex flex-col items-center justify-center text-[#202020] dark:text-[#F1F1F1]">
         <h1 class="text-4xl lg:text-6xl font-bold mb-20">Article :</h1>
@@ -20,8 +20,5 @@
             {{ form_end(form) }}
         </div>
     </div>
-
- 
-
-    
+   
 {% endblock %}

@@ -44,10 +44,17 @@ class ArticleFrontController extends AbstractController
             throw $this->createNotFoundException('Article not found');
         }
 
-        $form = $this->createForm(ArticleType::class, $article);
+        $originalBuild = $article->getBuild();
+
+        $form = $this->createForm(ArticleType::class, $article, [
+            'is_edit' => true, 
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $article->setBuild($originalBuild);
 
             $entityManager->flush();
 
@@ -60,9 +67,9 @@ class ArticleFrontController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_article_front_delete', methods: ['POST'])]
+    #[Route('/{title}', name: 'app_article_front_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
-    {dd($article);
+    {
         if ($this->isCsrfTokenValid('delete' . $article->getId(),
         $request->getPayload()->getString('_token'))) {
             

@@ -16,9 +16,10 @@ class ArticleType extends AbstractType
     {
         $user = $options['user'];
         $excludedBuildIds = $options['excluded_build_ids'];
+        $isEdit = $options['is_edit'] ?? false;
 
-        $builder
-            ->add('build', EntityType::class, [
+        if (!$isEdit) {
+            $builder->add('build', EntityType::class, [
                 'class' => Build::class,
                 'choice_label' => 'title',
                 'label' => 'Build  :',
@@ -30,12 +31,14 @@ class ArticleType extends AbstractType
                     // Exclure les builds déjà associés à d'autres articles
                     if (!empty($excludedBuildIds)) {
                         $qb->andWhere('b.id NOT IN (:excluded_ids)')
-                            ->setParameter('excluded_ids', $excludedBuildIds);
+                        ->setParameter('excluded_ids', $excludedBuildIds);
                     }
 
                     return $qb;
                 },
-            ])
+            ]);
+        }
+        $builder
             ->add('title', null, [
                 'label' => 'Title :',
             ])
@@ -62,6 +65,7 @@ class ArticleType extends AbstractType
             'data_class' => Article::class,
             'user' => null,
             'excluded_build_ids' => [],
+            'is_edit' => false, 
         ]);
     }
 }

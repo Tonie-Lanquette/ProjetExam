@@ -31,6 +31,10 @@ class CreateController extends AbstractController
 
         $creator = $this->getUser();
 
+        if (!$creator) {
+            return $this->redirectToRoute('app_login'); 
+        }
+
         $build = new Build();
 
         $build->setCreator($creator);
@@ -66,10 +70,14 @@ class CreateController extends AbstractController
     {
         $creator = $this->getUser();
 
+        if (!$creator) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $article = new Article();
         $article->setUser($creator);
 
-        // Récupérer les IDs des builds déjà associés aux articles de cet utilisateur
+        // recuperer id des builds créer par l'utilisateur et qui ont déjà un article associer
         $excludedBuildIds = $entityManager->getRepository(Article::class)
             ->createQueryBuilder('a')
             ->select('b.id')
@@ -79,9 +87,9 @@ class CreateController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        $excludedBuildIds = array_map(fn($item) => $item['id'], $excludedBuildIds); // Extraire les IDs
+        $excludedBuildIds = array_map(fn($item) => $item['id'], $excludedBuildIds); // recupérer id
 
-        // Créer le formulaire en passant les options nécessaires
+        //créer form exclure id article déjà créer
         $form = $this->createForm(ArticleType::class, $article, [
             'user' => $creator,
             'excluded_build_ids' => $excludedBuildIds,
