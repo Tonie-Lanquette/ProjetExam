@@ -8,8 +8,10 @@ use App\Form\ArticleType;
 use App\Form\BuildType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Transport\Dsn;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/create')]
@@ -62,18 +64,32 @@ class CreateController extends AbstractController
     #[Route('/article', name: 'app_create_article')]
     public function article(Request $request, EntityManagerInterface $entityManager): Response
     {
-
         $creator = $this->getUser();
 
         $article = new Article();
-
         $article->setUser($creator);
-        
-        $form = $this->createForm(ArticleType::class, $article);
+
+        // Récupérer les IDs des builds déjà associés aux articles de cet utilisateur
+        $excludedBuildIds = $entityManager->getRepository(Article::class)
+            ->createQueryBuilder('a')
+            ->select('b.id')
+            ->join('a.build', 'b')
+            ->where('a.user = :user')
+            ->setParameter('user', $creator)
+            ->getQuery()
+            ->getResult();
+
+        $excludedBuildIds = array_map(fn($item) => $item['id'], $excludedBuildIds); // Extraire les IDs
+
+        // Créer le formulaire en passant les options nécessaires
+        $form = $this->createForm(ArticleType::class, $article, [
+            'user' => $creator,
+            'excluded_build_ids' => $excludedBuildIds,
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $article->setCreated(new \DateTimeImmutable());
 
             $entityManager->persist($article);

@@ -24,6 +24,11 @@ class SlotType extends AbstractType
                 'multiple' => true,
                 'label' => false,
                 'expanded' => true,
+                'choice_attr' => function ($item) {
+                return [
+                    "data-const" => $item->getIcon(),
+                ];
+            },
             ])
         ;
     }

@@ -41,18 +41,22 @@
             
     </div>
     <div class="flex flex-col mb-40 space-y-10 items-center">
-        <div class="space-x-10">
+    {% if article.user == app.user %}
+        <div class="flex space-x-10">
             <a href="{{ path('app_article_front_edit' , {'title': article.title}) }}" class="bg-orange-400 hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">
                 Edit
             </a>
-             {{ include('front/article/_delete_form.html.twig') }}
+           {{ include('front/article/_delete_form.html.twig') }}
         </div>
+    {% else %}
+    {% endif %}
+
         <div class="space-x-10">
             <a href="{{ path('app_build_front_details', {'title': article.build.title}) }}" 
-                class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md">
+                class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-2 rounded-md">
                     See the build
             </a>
-            <a href="{{ path('app_create_article') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">
+            <a href="{{ path('app_create_article') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-2 rounded-md w-full">
                 Write an article
             </a>
         </div> 
