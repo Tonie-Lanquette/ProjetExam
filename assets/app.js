@@ -7,3 +7,5 @@ import './bootstrap.js';
  */
 import './styles/app.css';
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+import './js/vote.js';
+console.log('js vote est importer');
