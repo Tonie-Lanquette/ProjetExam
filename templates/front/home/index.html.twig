@@ -56,9 +56,13 @@
                         </div>
                     </div>
 
-                    {# like/dislike #}
+                   {# like/dislike #}
                     <div class="border-l-2 border-[#f1f1ff1] dark:border-[#3B3C44] ml-auto h-full flex items-center justify-center px-4">
-                        <p>like</p>
+                        <form method="post" action="{{ path('app_vote_build', { 'id': build.id }) }}">
+                            <button type="submit" class="flex items-center h-10 w-10 space-x-2">
+                                <i class="fa-regular fa-heart fa-2xl" style="color: #65c986;"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </a> 
@@ -86,9 +90,13 @@
                         </div>
                     </div>
 
-                    {# like/dislike #}
+                   {# like/dislike #}
                     <div class="border-t-2 border-[#f1f1ff1] dark:border-[#3B3C44] min-h-14 flex items-center justify-center w-full">
-                        <p class="text-sm">like</p>
+                        <form method="post" action="{{ path('app_vote_build', { 'id': build.id }) }}">
+                            <button type="submit" class="flex items-center space-x-2">
+                                <i class="fa-regular fa-heart fa-2xl" style="color: #65c986;"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </a>

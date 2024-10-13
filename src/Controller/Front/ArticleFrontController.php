@@ -70,12 +70,23 @@ class ArticleFrontController extends AbstractController
     #[Route('/{title}', name: 'app_article_front_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $article->getId(),
-        $request->getPayload()->getString('_token'))) {
-            
+       
+        $token = $request->request->get('_token');
+        $isCsrfTokenValid = $this->isCsrfTokenValid('delete' . $article->getTitle(), $token);
+
+        dump($token); 
+        dump($isCsrfTokenValid);  
+
+        if ($isCsrfTokenValid) {
             $entityManager->remove($article);
             $entityManager->flush();
+            
+            $this->addFlash('success', 'Article deleted successfully.');
+        } else {
+            
+            $this->addFlash('error', 'Invalid CSRF token. Deletion failed.');
         }
+
         return $this->redirectToRoute('app_article_front_index', [], Response::HTTP_SEE_OTHER);
-    } 
+    }
 }   

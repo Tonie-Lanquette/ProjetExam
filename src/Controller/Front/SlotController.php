@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
 use App\Entity\Slot;
-use App\Form\Slot1Type;
+use App\Form\SlotType;
 use App\Repository\SlotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +25,7 @@ final class SlotController extends AbstractController{
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $slot = new Slot();
-        $form = $this->createForm(Slot1Type::class, $slot);
+        $form = $this->createForm(SlotType::class, $slot);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,7 +52,7 @@ final class SlotController extends AbstractController{
     #[Route('/{id}/edit', name: 'app_slot_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Slot $slot, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Slot1Type::class, $slot);
+        $form = $this->createForm(SlotType::class, $slot);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
