@@ -6,7 +6,5 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
-
 import './js/vote.js';
-import './js/edit.js';
 

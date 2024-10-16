@@ -29,10 +29,10 @@ class Build
     #[Assert\Type(type: 'bool', message: 'Visibility must be a boolean value.')]
     private ?bool $visibility = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated = null;
 
     #[ORM\ManyToOne(inversedBy: 'builds')]

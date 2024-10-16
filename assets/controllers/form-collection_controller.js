@@ -2,16 +2,15 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     connect() {
-        // Vérification si l'élément avec l'id "edit" existe
+        // test edit presence
         const edit = document.getElementById("edit");
         
-        // Si l'élément est trouvé, arrêter l'exécution de la fonction connect
+        // si oui non execution pour form edit
         if (edit) {
-            console.log("Élément avec l'id 'edit' trouvé. Arrêt de l'exécution.");
-            return; // Arrête l'exécution si l'élément "edit" est trouvé
+            return; 
         }
         
-        console.log("Aucun élément avec l'id 'edit' trouvé, poursuite de l'exécution.");
+        
 
         this.index = this.element.childElementCount;
         const btn = document.createElement('button');
@@ -21,12 +20,10 @@ export default class extends Controller {
         btn.addEventListener('click', this.addElement);
         this.element.append(btn);
         
-        // Simuler plusieurs clics sur le bouton
         btn.click();
         btn.click();
         btn.click();
         
-        // Cacher le bouton après les clics
         btn.setAttribute('class', 'hidden');
     }
 

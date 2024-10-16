@@ -33,6 +33,7 @@ class BuildRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('build')
             ->where('build.creator = :user')
             ->setParameter('user', $user)
+            ->orderBy('build.created', 'DESC')
             ->getQuery()
             ->getResult();
     }
@@ -42,6 +43,7 @@ class BuildRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('build')
             ->where('build.champion = :champion')
             ->setParameter('champion', $champion)
+            ->orderBy('build.created', 'ASC')
             ->getQuery()
             ->getResult();
     }

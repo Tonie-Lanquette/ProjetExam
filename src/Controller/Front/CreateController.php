@@ -35,8 +35,6 @@ class CreateController extends AbstractController
 
         $build = new Build();
 
-       
-
         $form = $this->createForm(BuildType::class, $build);
         $form->handleRequest($request);
 
