@@ -61,5 +61,21 @@ export default class extends Controller {
         }
 
         element.insertAdjacentElement('beforebegin', falseLabel);
+
+        const checkboxes = element.querySelectorAll('input[type="checkbox"]');
+
+    checkboxes.forEach(checkbox => {
+        // Get the data-const attribute value
+        const imageUrl = checkbox.getAttribute('data-const');
+        
+        // Create an <img> element
+        const img = document.createElement('img');
+        img.setAttribute('src', imageUrl);
+        img.setAttribute('alt', 'Item icon');
+        img.setAttribute('class', 'mx-2 mt-1 item-image h-16 w-16'); // You can add your own classes for styling
+        
+        // Insert the <img> after the checkbox
+        checkbox.insertAdjacentElement('afterend', img);
+        });
     };
 }

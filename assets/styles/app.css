@@ -52,3 +52,18 @@
 textarea {
     height: 300px;
 }
+/* form build */
+
+.scroll-hidden-form {
+    overflow-y: scroll;
+}
+
+.scroll-hidden-form::-webkit-scrollbar {
+    width: 8px;
+    background: rgba(0, 0, 0, 0);
+}
+
+.scroll-hidden-form::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
