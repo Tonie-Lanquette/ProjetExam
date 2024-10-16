@@ -8,4 +8,5 @@ import './bootstrap.js';
 import './styles/app.css';
 
 import './js/vote.js';
+import './js/edit.js';
 

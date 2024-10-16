@@ -69,16 +69,27 @@
                 Explanation
         </a>
     {% endif %}
-        <div class="flex flex-col lg:flex-row text-center lg:space-x-10">
-            <a href="{{ path('app_build_front_edit' , {'title': build.title}) }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full my-2">
-                Edit
-            </a>
-            <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full my-2">
-                Make my own build
-            </a>
-            <a href="{{ path('app_build_front_index') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full my-2">
-                Go back to all builds
-            </a>
+        <div class="flex flex-col text-center  space-y-4 items-center">
+            {% if app.user %}
+                {% if build.creator == app.user %}
+                    <div class="flex space-x-10 w-fit">
+                        <a href="{{ path('app_build_front_edit' , {'title': build.title}) }}" class="bg-orange-400 hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full">
+                            Edit
+                        </a>
+                    {# {{ include('front/article/_delete_form.html.twig') }} #}
+                    </div>
+                {% else %}
+                {% endif %}
+            {% else %}
+            {% endif %}
+            <div class="flex space-x-10">
+                <a href="{{ path('app_create_build') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full my-2">
+                    Make my own build
+                </a>
+                <a href="{{ path('app_build_front_index') }}" class="bg-[#65C986] hover:bg-[#C5C5C5] text-[#202020] font-bold py-2 px-3 rounded-md w-full my-2">
+                    Go back to all builds
+                </a>
+            </div>
         </div>
     </div>   
 {% endblock %}

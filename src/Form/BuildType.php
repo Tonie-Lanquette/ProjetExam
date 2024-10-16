@@ -23,9 +23,6 @@ class BuildType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Champion :',
             ])
-            ->add('visibility', null,[
-                'label' => 'Keep it private',
-            ])
             ->add('slots', CollectionType::class, [
                 'entry_type' => SlotType::class, 
                 'entry_options' => ['label' => false],
@@ -34,6 +31,10 @@ class BuildType extends AbstractType
                 'by_reference' => false, 
                 'attr' => ['data-controller' => 'form-collection']
              ])
+            ->add('visibility', null,[
+                'label' => 'Keep it private',
+            ])
+            
         ;
     }
 

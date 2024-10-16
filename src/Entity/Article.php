@@ -19,8 +19,8 @@ class Article
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Title cannot be blank")]
-    #[Assert\Length( min: 5, max: 255, minMessage: "Title must be at least {{ limit }} characters long", maxMessage: "Title cannot be longer than {{ limit }} characters")]
-    #[Assert\Regex(pattern: '/^[\w\s]+$/', message: 'Title can only contain letters, numbers, and spaces')]
+    #[Assert\Length( min: 5, max: 60, minMessage: "Title must be at least {{ limit }} characters long", maxMessage: "Title cannot be longer than {{ limit }} characters")]
+    #[Assert\Regex(pattern: '/^[\w\s]+$/', message: "Title can only contain letters, numbers, and spaces")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
