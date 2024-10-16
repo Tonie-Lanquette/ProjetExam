@@ -22,7 +22,16 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('article')
         ->where('article.user = :user')
         ->setParameter('user', $user)
-            ->getQuery()
-            ->getResult();
+        ->orderBy('article.created', 'DESC')
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function findAllByLastest()
+    {
+        return $this->createQueryBuilder('article')
+        ->orderBy('article.created', 'DESC')
+        ->getQuery()
+        ->getResult();
     }
 }

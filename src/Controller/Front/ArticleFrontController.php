@@ -17,7 +17,7 @@ class ArticleFrontController extends AbstractController
     #[Route('s', name: 'app_article_front_index')]
     public function index(ArticleRepository $articleRepository): Response
     {
-        $articles = $articleRepository->findAll();
+        $articles = $articleRepository->findAllByLastest();
         return $this->render('front/article/index.html.twig', [
             'articles' => $articles
         ]);
@@ -39,6 +39,12 @@ class ArticleFrontController extends AbstractController
     #[Route('/{title}/edit', name: 'app_article_front_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, EntityManagerInterface $entityManager, ArticleRepository $articleRepository, string $title): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $article = $articleRepository->findOneBy(['title' => $title]);
         if (!$article) {
             throw $this->createNotFoundException('Article not found');

@@ -22,6 +22,10 @@ class ProfilController extends AbstractController
 
         $user = $this->getUser();
 
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $builds = $buildRepository->findBuildsByUser($user);
         $articles = $articleRepository->findArticlesByUser($user);
         $favorites = $buildRepository->findBuildsByLike($user);
@@ -38,6 +42,10 @@ class ProfilController extends AbstractController
     public function changePassword(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
         if (!$user instanceof PasswordAuthenticatedUserInterface) {
             $this->addFlash('error', 'Vous devez être connecté pour changer votre mot de passe.');

@@ -44,6 +44,12 @@ class BuildFrontController extends AbstractController
     #[Route('/{title}/edit', name: 'app_build_front_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, EntityManagerInterface $entityManager, BuildRepository $buildRepository, string $title): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $build = $buildRepository->findOneBy(['title' => $title]);
         if (!$build) {
             throw $this->createNotFoundException('Build not found');
