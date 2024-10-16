@@ -2,6 +2,7 @@
 
 namespace App\Controller\Front;
 
+use App\Repository\BuildRepository;
 use App\Repository\ChampionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,15 +22,18 @@ class ChampionFrontController extends AbstractController
     }
 
     #[Route('/{name}', name: 'app_champion_front_details')]
-    public function details(ChampionRepository $championRepository, string $name): Response
+    public function details(ChampionRepository $championRepository, string $name, BuildRepository $buildRepository): Response
     {
         $champion = $championRepository->findOneBy(['name' => $name]);
         if (!$champion) {
             throw $this->createNotFoundException('Champion not found');
         }
 
+        $builds = $buildRepository->findBuildsById($champion);
+
         return $this->render('front/champion/details.html.twig', [
-            'champion' => $champion
+            'builds' => $builds,
+            'champion' => $champion    
         ]);
     }
 }

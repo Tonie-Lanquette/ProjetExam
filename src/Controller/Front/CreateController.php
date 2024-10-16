@@ -35,13 +35,14 @@ class CreateController extends AbstractController
 
         $build = new Build();
 
-        $build->setCreator($creator);
+       
 
         $form = $this->createForm(BuildType::class, $build);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
+            $build->setCreator($creator);
             $build->setCreated(new \DateTimeImmutable());
             $build->setUpdated(new \DateTimeImmutable());
 
@@ -73,7 +74,7 @@ class CreateController extends AbstractController
         }
 
         $article = new Article();
-        $article->setUser($creator);
+       
 
         // recuperer id des builds créer par l'utilisateur et qui ont déjà un article associer
         $excludedBuildIds = $entityManager->getRepository(Article::class)
@@ -85,7 +86,7 @@ class CreateController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        $excludedBuildIds = array_map(fn($item) => $item['id'], $excludedBuildIds); // recupérer id
+        $excludedBuildIds = array_map(fn($item) => $item['id'], $excludedBuildIds);
 
         //créer form exclure id article déjà créer
         $form = $this->createForm(ArticleType::class, $article, [
@@ -96,6 +97,8 @@ class CreateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
+            $article->setUser($creator);
             $article->setCreated(new \DateTimeImmutable());
 
             $entityManager->persist($article);

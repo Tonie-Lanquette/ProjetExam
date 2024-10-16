@@ -28,6 +28,90 @@
                 <a class="bg-[#65C986] py-2 px-4 rounded-md text-[#202020] font-bold my-16" href="{{ path('app_logout') }}">Logout</a> 
             </div>
 
+<h1 class="text-3xl lg:text-6xl my-14 lg:my-28 text-[#202020] dark:text-[#F1F1F1] font-semibold">Your favorite</h1>
+
+            <div class="flex flex-wrap w-full justify-center items-center px-10 lg:px-20 space-y-10 lg:space-y-20 drop-shadow-lg lg:mb-40 mb-20">
+                {% if favorites is defined %}
+                    {% if favorites|length > 0 %}
+                        {% for favorite in favorites %}
+                            {# COMPUTER LG:1024 #}
+                            <div class="lg:w-full">
+                                <div class="hidden lg:flex w-full text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md h-48">
+                                    <a class="w-full flex"  href="{{ path('app_build_front_details' , {'title': favorite.title}) }}">
+                                        {# image #}
+                                        <img src="{{ favorite.champion.squarePortrait }}" alt="{{ favorite.champion.name }}" class="self-left rounded-tl-md rounded-bl-md">
+
+                                        {# ::title + object #}
+                                        <div class="h-full flex flex-col justify-around w-full pb-4">
+                                            <div class="flex px-6 w-full justify-between">
+                                                <p class="capitalize font-bold text-2xl">{{favorite.title}}</p>
+                                                <p>Creation : {{favorite.created|date("d/m/Y")}}</p>
+                                            </div>
+                                            
+                                            <div class="flex items-center w-full scroll-x-hidden px-5 space-x-6">
+                                            {% for slot in favorite.slots %}              
+                                                {% for item in slot.item %}
+                                                    <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full">
+                                                {% endfor %}
+                                            {% endfor %}
+                                            </div>
+                                        </div>
+                                    </a>
+                                {# like/dislike #}
+                                    <div class="border-l-2 border-[#f1f1ff1] dark:border-[#3B3C44] ml-auto h-full flex items-center justify-center px-4">
+                                        <form method="post" action="{{ path('app_vote_build', { 'id': favorite.id }) }}">
+                                            <button type="submit" class="flex items-center h-10 w-10 space-x-2">
+                                                <i class="fa-regular fa-heart fa-2xl" style="color: #65c986;"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {# PHONE  #}
+                            
+                            <div class="lg:hidden flex flex-col items-center mx-4 md:mx-10 text-center bg-[#FFFFFF] dark:bg-[#494A56] rounded-md w-[256px] h-[410px]">
+                                <div class="flex flex-col w-full h-full">
+                                    <a class="w-full h-full" href="{{ path('app_build_front_details' , {'title': favorite.title}) }} ">
+                                            {# image #}
+                                            <img src="{{ favorite.champion.splashArt }}" alt="{{ favorite.champion.name }}" class="rounded-t-md w-full h-auto object-cover">
+
+                                            {# title + object #}
+                                            <div class="flex flex-col justify-around w-full p-4 space-y-4 h-[200px]">
+                                                <div class="flex flex-col items-center">
+                                                    <p class="capitalize mt-2 text-xl font-bold max-h-[64px] line-clamp-2 overflow-hidden text-ellipsis">{{favorite.title}}</p>
+                                                    <p class="text-xs my-2">Creation : {{favorite.created|date("d/m/Y")}}</p>
+                                                </div>
+
+                                                <div class="flex w-full scroll-x-hidden px-1 space-x-3 my-2">
+                                                    {% for slot in favorite.slots %}
+                                                        {% for item in slot.item %}
+                                                            <img src="{{ item.icon }}" alt="{{ item.name }}" class="rounded-full h-10 w-10">
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                    </a>
+                                    {# like/dislike #}
+                                    <div class="border-t-2 border-[#f1f1ff1] dark:border-[#3B3C44] min-h-14 flex items-center justify-center w-full mt-auto">
+                                        <form method="post" action="{{ path('app_vote_build', { 'id': favorite.id }) }}">
+                                            <button type="submit" class="flex items-center space-x-2">
+                                                <i class="fa-regular fa-heart fa-2xl" style="color: #65c986;"></i>
+                                                <i class="fa-solid fa-heart fa-2xl" style="color: #65c986;"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>    
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="w-full text-center">You haven't any favorite for now.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="w-full text-center">There is a connection error to the server. Please try again later.</p>
+                {% endif %}
+            </div>    
+
             <h1 class="text-3xl lg:text-6xl my-14 lg:my-28 text-[#202020] dark:text-[#F1F1F1] font-semibold">Your builds</h1>
 
             <div class="flex flex-wrap w-full justify-center items-center px-10 lg:px-20 space-y-10 lg:space-y-20 drop-shadow-lg lg:mb-40 mb-20">

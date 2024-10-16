@@ -28,7 +28,7 @@ class ArticleType extends AbstractType
                         ->where('b.creator = :creator')
                         ->setParameter('creator', $user);
 
-                    // Exclure les builds déjà associés à d'autres articles
+                    // exclure builds associer à articles
                     if (!empty($excludedBuildIds)) {
                         $qb->andWhere('b.id NOT IN (:excluded_ids)')
                         ->setParameter('excluded_ids', $excludedBuildIds);

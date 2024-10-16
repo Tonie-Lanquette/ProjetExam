@@ -24,11 +24,13 @@ class ProfilController extends AbstractController
 
         $builds = $buildRepository->findBuildsByUser($user);
         $articles = $articleRepository->findArticlesByUser($user);
+        $favorites = $buildRepository->findBuildsByLike($user);
 
         return $this->render('front/profil/index.html.twig', [
             'user' => $user,
             'builds' => $builds,
             'articles' => $articles,
+            'favorites' => $favorites,
         ]);
     }
 
