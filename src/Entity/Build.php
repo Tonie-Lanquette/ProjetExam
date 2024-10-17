@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: BuildRepository::class)]
-#[UniqueEntity('name', message: 'This name is already used')]
+#[UniqueEntity('title', message: 'This title is already used')]
 class Build
 {
     #[ORM\Id]
@@ -22,7 +22,11 @@ class Build
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Title cannot be blank.")]
-    #[Assert\Length( min: 5, max: 255, minMessage: "Title cannot be shorter than {{ limit }} characters.", maxMessage: "Title cannot be longer than {{ limit }} characters."
+    #[Assert\Length(
+        min: 5,
+        max: 255,
+        minMessage: "Title cannot be shorter than {{ limit }} characters.",
+        maxMessage: "Title cannot be longer than {{ limit }} characters."
     )]
     #[Assert\Regex(pattern: '/^[\w\s]+$/', message: 'Title can only contain letters, numbers, and spaces')]
     private ?string $title = null;
@@ -49,13 +53,13 @@ class Build
     /**
      * @var Collection<int, Slot>
      */
-    #[ORM\OneToMany(targetEntity: Slot::class, mappedBy: 'build', orphanRemoval: true, cascade:['persist'])]
+    #[ORM\OneToMany(targetEntity: Slot::class, mappedBy: 'build', orphanRemoval: true, cascade: ['persist'])]
     private Collection $slots;
 
     /**
      * @var Collection<int, Vote>
      */
-    #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'build')]
+    #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'build', cascade: ['remove'], orphanRemoval: true)]
     private Collection $votes;
 
     #[ORM\ManyToOne(inversedBy: 'builds')]
@@ -234,5 +238,4 @@ class Build
 
         return $this;
     }
-
 }

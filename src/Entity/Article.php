@@ -61,8 +61,8 @@ class Article
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?User $user = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\JoinColumn(onDelete: 'SET NULL')]
+    #[ORM\OneToOne(orphanRemoval: true)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Build $build = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
