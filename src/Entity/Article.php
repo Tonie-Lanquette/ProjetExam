@@ -62,7 +62,7 @@ class Article
     private ?User $user = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Build $build = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

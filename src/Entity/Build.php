@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: BuildRepository::class)]
-#[UniqueEntity('title', message: 'This title is already used')]
+#[UniqueEntity('name', message: 'This name is already used')]
 class Build
 {
     #[ORM\Id]

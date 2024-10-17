@@ -72,4 +72,29 @@ class BuildFrontController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/{title}/delete', name: 'app_build_front_delete', methods: ['POST'])]
+    public function delete(Request $request, BuildRepository $buildRepository, EntityManagerInterface $entityManager, string $title): Response
+    {
+        // Vérification que l'utilisateur est connecté
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Recherche du build à supprimer
+        $build = $buildRepository->findOneBy(['title' => $title]);
+        if (!$build) {
+            throw $this->createNotFoundException('Build not found');
+        }
+
+        // Vérification du token CSRF pour plus de sécurité
+        if ($this->isCsrfTokenValid('delete' . $build->getId(), $request->request->get('_token'))) {
+            // Suppression du build
+            $entityManager->remove($build);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_build_front_index', [], Response::HTTP_SEE_OTHER);
+    }
 }

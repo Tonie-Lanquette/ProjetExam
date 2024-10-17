@@ -2,15 +2,14 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     connect() {
-        // test edit presence
+        // Test de la présence de l'élément avec l'ID "edit"
         const edit = document.getElementById("edit");
         
-        // si oui non execution pour form edit
+        // Si "edit" existe, on ignore l'ajout de nouveaux éléments mais on exécute toujours la génération des images
         if (edit) {
+            this.generateImages();
             return; 
         }
-        
-        
 
         this.index = this.element.childElementCount;
         const btn = document.createElement('button');
@@ -61,21 +60,25 @@ export default class extends Controller {
         }
 
         element.insertAdjacentElement('beforebegin', falseLabel);
+        this.generateImages(element);
+    };
 
+    // Nouvelle méthode pour générer les images sur l'élément donné
+    generateImages(element = this.element) {
         const checkboxes = element.querySelectorAll('input[type="checkbox"]');
 
-    checkboxes.forEach(checkbox => {
-        // Get the data-const attribute value
-        const imageUrl = checkbox.getAttribute('data-const');
-        
-        // Create an <img> element
-        const img = document.createElement('img');
-        img.setAttribute('src', imageUrl);
-        img.setAttribute('alt', 'Item icon');
-        img.setAttribute('class', 'mx-2 mt-1 item-image h-16 w-16'); // You can add your own classes for styling
-        
-        // Insert the <img> after the checkbox
-        checkbox.insertAdjacentElement('afterend', img);
+        checkboxes.forEach(checkbox => {
+            // Récupérer la valeur de l'attribut data-const
+            const imageUrl = checkbox.getAttribute('data-const');
+            
+            // Créer un élément <img>
+            const img = document.createElement('img');
+            img.setAttribute('src', imageUrl);
+            img.setAttribute('alt', 'Item icon');
+            img.setAttribute('class', 'mx-2 mt-1 item-image h-16 w-16'); // Tu peux personnaliser tes classes
+            
+            // Insérer l'image après la checkbox
+            checkbox.insertAdjacentElement('afterend', img);
         });
-    };
+    }
 }

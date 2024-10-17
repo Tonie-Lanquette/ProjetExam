@@ -73,26 +73,34 @@ class ArticleFrontController extends AbstractController
         ]);
     }
 
-    #[Route('/{title}', name: 'app_article_front_delete', methods: ['POST'])]
-    public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
+    #[Route('/{title}/delete', name: 'app_article_front_delete', methods: ['POST'])]
+    public function delete(Request $request, ArticleRepository $articleRepository, EntityManagerInterface $entityManager, string $title): Response
     {
-       
-        $token = $request->request->get('_token');
-        $isCsrfTokenValid = $this->isCsrfTokenValid('delete' . $article->getTitle(), $token);
+        $user = $this->getUser();
 
-        dump($token); 
-        dump($isCsrfTokenValid);  
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
-        if ($isCsrfTokenValid) {
+        $article = $articleRepository->findOneBy(['title' => $title]);
+        if (!$article) {
+            throw $this->createNotFoundException('Article not found');
+        }
+
+        // Vérifier si le token CSRF est valide
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
+
+            // Dissocier le Build mais ne pas le supprimer
+            $article->setBuild(null);
+
             $entityManager->remove($article);
             $entityManager->flush();
-            
-            $this->addFlash('success', 'Article deleted successfully.');
-        } else {
-            
-            $this->addFlash('error', 'Invalid CSRF token. Deletion failed.');
+
+            $this->addFlash('success', 'Article supprimé avec succès');
         }
 
         return $this->redirectToRoute('app_article_front_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }   
